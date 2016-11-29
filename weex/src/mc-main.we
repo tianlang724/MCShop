@@ -1,0 +1,84 @@
+<template>
+  <div class="wrapper">  
+    <div class="upper">
+      <input 
+       class="searchBar" 
+        id="searchBar" 
+        type="text"
+        autofocus="true"
+        placeholder="橡木木板"
+      >
+       </input>
+    </div>
+    <scroller class="lower" id="lower">
+       <mc-block-list list="{{list}}"></mc-block-list>
+    </scroller>
+  </div>
+</template>
+
+<style>
+.searchBar {
+  font-size: 50px;
+  padding-left: 10px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+.lower {
+}
+</style>
+
+<script>
+  var sqliteModules = require('@weex-module/sqlitemodule');
+  module.exports = {
+    data: {
+      list: [
+      ]
+    },
+    created: function() {
+      var self = this;
+      sqliteModules.getAllEntriesFromTableItems(
+        function(list) {
+          for(var i = 0; i < list.length;) {
+            var item = new Object();
+            item.id1 = list[i].id;
+            item.name1 = list[i].name;
+            item.icon_dir1 = list[i].icon_dir;
+            i++;
+            if (i >= list.length) {
+              self.list.push(item);
+              continue;
+            };
+            item.id2 = list[i].id;
+            item.name2 = list[i].name;
+            item.icon_dir2 = list[i].icon_dir;
+            i++;
+            if (i >= list.length) {
+              self.list.push(item);
+              continue;
+            };
+            item.id3 = list[i].id;
+            item.name3 = list[i].name;
+            item.icon_dir3 = list[i].icon_dir;
+            i++;
+            if (i >= list.length) {
+              self.list.push(item);
+              continue;
+            };
+            item.id4 = list[i].id;
+            item.name4 = list[i].name;
+            item.icon_dir4 = list[i].icon_dir;
+            self.list.push(item);
+            i++;
+           }
+        }
+      )
+      this.$on("pressingId", function(e) {
+        sqliteModules.logToast(e.detail);
+      });
+    },
+    methods: {
+    }
+  }
+</script>

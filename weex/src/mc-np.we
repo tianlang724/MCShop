@@ -1,0 +1,20 @@
+<template>
+  <container class="itemList">
+    <text class="text">{{text}}</text>
+  </container>
+</template>
+
+<style>
+.text {
+  font-size: 50px;
+}
+</style>
+<script>
+  module.exports = {
+    data: {
+      text: "helloworld"
+    },
+    methods: {
+    }
+  }
+</script>

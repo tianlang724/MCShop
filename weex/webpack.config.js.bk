@@ -1,0 +1,23 @@
+require('webpack')
+require('weex-loader')
+
+var path = require('path')
+
+module.exports = {
+  entry: {
+    main: path.join(__dirname, 'src', 'mc-main.we?entry=true'),
+    npage: path.join(__dirname, 'src', 'mc-np.we?enrty=true')
+  },
+  output: {
+    path: '../app/src/main/assets/weex/',
+    filename: '[name].js'
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.we(\?[^?]+)?$/,
+        loaders: ['weex-loader']
+      }
+    ]
+  }
+}

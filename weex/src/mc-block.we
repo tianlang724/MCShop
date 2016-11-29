@@ -1,0 +1,94 @@
+<template>
+  <container class="bundleRow">
+    <div class="bundle" id="{{id1}}" onclick="clickItem1" onlongpress="longpress">
+      <image src="{{icon_dir1}}" class="pics"></image>
+      <text class="name">{{name1}}</text>
+    </div>
+    <div class="bundle" id="{{id2}}" onclick="clickItem2" onlongpress="longpress">
+      <image src="{{icon_dir2}}" class="pics"></image>
+      <text class="name">{{name2}}</text>
+    </div>
+    <div class="bundle" id="{{id3}}" onclick="clickItem3" onlongpress="longpress">
+      <image src="{{icon_dir3}}" class="pics"></image>
+      <text class="name">{{name3}}</text>
+    </div>
+    <div class="bundle" id="{{id4}}" onclick="clickItem4" onlongpress="longpress">
+      <image src="{{icon_dir4}}" class="pics"></image>
+      <text class="name">{{name4}}</text>
+    </div>
+  </container>
+</template>
+
+<style>
+
+.bundleRow {
+  flex-direction: row;
+}
+
+.pics {
+  width: 150px;
+  height: 150px;
+}
+
+.name {
+  font-size: 20px;
+  text-align: center;
+}
+
+.bundle {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 150px;
+  height: 200px;
+}
+</style>
+
+<script>
+  var modal = require('@weex-module/modal');
+  var navigator = require('@weex-module/navigator');
+  module.exports = {
+    data: {
+      id1: null,
+      name1: null,
+      icon_dir1: null,
+      id2: null,
+      name2: null,
+      icon_dir2: null,
+      id3: null,
+      name3: null,
+      icon_dir3: null,
+      id4: null,
+      name4: null,
+      icon_dir4: null,
+      baseURL:""
+    },
+    created: function() {
+      this.baseURL = 'file://assets/weex/';
+    },
+    methods: {
+      clickItem1: function() {
+        this.$dispatch("pressingId", this.id1);
+      },
+      clickItem2: function() {
+        this.$dispatch("pressingId", this.id2);
+      },
+      clickItem3: function() {
+        this.$dispatch("pressingId", this.id3);
+      },
+      clickItem4: function() {
+        this.$dispatch("pressingId", this.id4);
+      },
+      longpress: function(e) {
+        modal.toast({'message': "longpress", 'duration': 1});
+        var params = {
+          'url': this.baseURL + 'npage.js',
+          'animated': 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+      }
+    }
+  }
+</script>
