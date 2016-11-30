@@ -129,16 +129,23 @@
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
 
+	var sqliteModules = __weex_require__('@weex-module/sqlitemodule');
 	var modal = __weex_require__('@weex-module/modal');
 	var navigator = __weex_require__('@weex-module/navigator');
 	module.exports = {
 	  data: function () {return {
-	    id: null,
+	    item: null,
 	    name: null,
+	    id: null,
 	    icon_dir: null
 	  }},
 	  created: function created() {
 	    this.baseURL = 'file://assets/weex/pages/';
+	    var item = new Object();
+	    item.name = this.name;
+	    item.id = this.id;
+	    item.icon_dir = this.icon_dir;
+	    this.item = item;
 	  },
 	  methods: {
 	    clickitem: function clickitem(e) {
@@ -151,13 +158,14 @@
 	    longpress: function longpress(e) {
 	      var self = this;
 	      modal.confirm({
-	        message: "add " + this.name + " to shopping list?",
+	        message: "add " + this.item.name + " to shopping list?",
 	        okTitle: "yes",
 	        cancelTitle: "no"
 	      }, function (res) {
 	        modal.toast({ 'message': res, 'duration': 1 });
 	        if (res == "yes") {
 	          modal.toast({ 'message': "yes click", 'duration': 1 });
+	          sqliteModules.insertItemToShoppingList(self.item, function (res) {});
 	          self.$dispatch('additem2shoppinglist', { id: self.id });
 	        }
 	      });

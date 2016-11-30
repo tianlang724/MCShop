@@ -1,14 +1,36 @@
 <template>
-  <text>shopping list item number:{{added_item}}</text>
+  <scroller class="lower" id="lower">
+    <mc-sp-row row="{{row}}"></mc-sp-row>
+  </scroller>
 </template>
 
 <style>
 </style>
 
 <script>
+  require('../components/mc-sp-row.we');
+  var sqliteModules = require('@weex-module/sqlitemodule');
+  var modal = require('@weex-module/modal');
   module.exports = {
     data:{
-      added_item: 0
+      added_item: 0,
+      row: []
+    },
+    created: function() {
+      var self = this;
+      sqliteModules.getAllItemFromShoppingList(function(list) {
+        if(list == "null") {
+          modal.toast({"message": "list is  empty", "duration": 1});
+          return;
+        }
+        for(var i = 0; i < list.length; i++) {
+            var item = new Object();
+            item.id = list[i].id;
+            item.name = list[i].name;
+            item.icon_dir = list[i].icon_dir;
+            self.row.push(item);
+          }
+      });
     }
   }
 </script>
