@@ -8,7 +8,8 @@
         autofocus="true"
         placeholder="橡木木板"
       >
-       </input>
+      </input>
+      <text class="but" onclick="onclicksearch">search</text>
     </div>
     <scroller class="lower" id="lower">
        <mc-block-list list="{{list}}"></mc-block-list>
@@ -18,19 +19,34 @@
 
 <style>
 .searchBar {
-  font-size: 50px;
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  flex: 2;
+}
+
+.upper {
+  flex-direction: row;
+  flex: 1;
+}
+
+.but {
+  background-color: red;
+  flex: 1;
 }
 
 .lower {
+  flex: 10;
+}
+
+.wrapper {
+/*
+  margin-left: 10px;
+  margin-right: 10px;
+*/
 }
 </style>
 
 <script>
   var sqliteModules = require('@weex-module/sqlitemodule');
+  var navigator = require('@weex-module/navigator');
   module.exports = {
     data: {
       list: [
@@ -79,6 +95,14 @@
       });
     },
     methods: {
+      onclicksearch: function(e) {
+        var params = {
+          'url': "file://assets/weex/mc-np.js",
+          'animated' : 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+      }
     }
   }
 </script>

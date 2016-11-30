@@ -39,7 +39,7 @@ public class MainActivity extends AbsWeexActivity {
 
     @Override
     public void onRenderSuccess(WXSDKInstance instance, int width, int height) {
-        Toast.makeText(MainActivity.this, "Success Rendering", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "Success Rendering", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -1,15 +1,6 @@
 <template>
   <container class="itemList">
     <div class="upper">
-      <input 
-       class="searchBar" 
-        id="searchBar" 
-        type="text"
-        autofocus="false"
-        placeholder="橡木木板"
-        onfocus="onsearchfocus"
-      >
-      </input>
       <text class="but" onclick="onclicksearch">search</text>
     </div>
   </container>
@@ -19,16 +10,9 @@
 .text {
   font-size: 50px;
 }
-.searchBar {
-  font-size: 50px;
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
-}
 
 .upper {
-  flex-direction: row;
+  flat-direction: row;
 }
 
 .but {
