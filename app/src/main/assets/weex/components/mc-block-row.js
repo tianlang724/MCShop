@@ -144,7 +144,7 @@
 	  methods: {
 	    clickitem: function clickitem(e) {
 	      var params = {
-	        'url': this.baseURL + 'mc-formula.js',
+	        'url': this.baseURL + 'mc-formula.js?id=' + this.id,
 	        'animated': 'true'
 	      };
 	      navigator.push(params, function (e) {});

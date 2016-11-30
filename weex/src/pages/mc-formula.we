@@ -1,7 +1,7 @@
 <template>
   <container class="itemList">
     <div class="upper">
-      <text class="but" onclick="onclicksearch">search</text>
+      <text class="but" onclick="onclicksearch">{{text}}</text>
     </div>
   </container>
 </template>
@@ -22,9 +22,13 @@
 </style>
 <script>
   var navigator = require('@weex-module/navigator');
+  var modal = require('@weex-module/modal');
   module.exports = {
     data: {
-      text: "helloworld"
+      text: "helloworld123",
+      id: null,
+      name: null,
+      icon_dir: null
     },
     methods: {
       onsearchfocus: function(e) {
@@ -34,6 +38,13 @@
         navigator.pop(params, function(e) {
         });
       }
+    },
+    ready: function() {
+      var url = this.$getConfig().bundleUrl;
+      var reg = new RegExp('[?|&]' + "id" + '=([^&]+)')
+      var match = url.match(reg);
+      modal.toast({'message': match[1], 'duration': 1});
+      this.id = match[1];   
     }
   }
 </script>
