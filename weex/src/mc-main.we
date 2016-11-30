@@ -1,26 +1,32 @@
 <template>
   <div class="wrapper">  
     <div class="upper">
-      <wxc-button class='but' type="default" size="middle" value="{{added_item}}" onclick="onshoppinglistclick"></wxc-button>
+      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
       <input 
         class="searchBar" 
         id="searchBar" 
         type="text"
         autofocus="true"
         placeholder="input item name or id"
+        value={{searchbarInputTxt}}
+        oninput="searchBarInput"
       >
       </input>
-      <wxc-button class='but' type="default" size="middle" value="search" onclick="onsearchbutclick"></wxc-button>
+      <text class='but' onclick="searchButClick">search</text>
     </div>
     <scroller class="lower" id="lower">
-       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-list>
+       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
     </scroller>
   </div>
 </template>
 
 <style>
 .searchBar {
+  border-left: 5px;
+  border-right: 5px;
   border-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;  
   flex: 3;
 }
 
@@ -31,6 +37,9 @@
 
 .but {
   flex: 1;
+  text-align: center;
+  font-size: 35;
+
 }
 
 .lower {
@@ -53,7 +62,8 @@
     data: {
       row: [
       ],
-      added_item: 0
+      added_item: 0,
+      searchbarInputTxt:''
     },
     created: function() {
       var self = this;
@@ -88,14 +98,6 @@
       });
     },
     methods: {
-      onsearchbutclick: function(e) {
-        var params = {
-          'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item,
-          'animated': 'true'
-        };
-        navigator.push(params, function(e) {
-        });
-      },
       onshoppinglistclick: function(e) {
         var params = {
           'url': "file://assets/weex/pages/mc-splist.js",
@@ -103,6 +105,20 @@
         };
         navigator.push(params, function(e) {
         });
+      },
+      searchBarInput:function (e) {
+        this.searchbarInputTxt=e.value;
+      },
+      searchButClick:function(e){
+        var txt=this.searchbarInputTxt;
+        //modal.toast({'message': txt, 'duration': 1});
+        var params = {
+        'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item+"&searchtxt="+txt,
+        'animated': 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+
       }
     }
   }
