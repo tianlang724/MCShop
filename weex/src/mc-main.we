@@ -1,15 +1,16 @@
 <template>
   <div class="wrapper">  
     <div class="upper">
+      <wxc-button class='but' type="default" size="middle" value="{{added_item}}" onclick="onshoppinglistclick"></wxc-button>
       <input 
-       class="searchBar" 
+        class="searchBar" 
         id="searchBar" 
         type="text"
         autofocus="true"
-        placeholder="橡木木板"
+        placeholder="input item name or id"
       >
       </input>
-      <text class="but" onclick="onclicksearch">search</text>
+      <wxc-button class='but' type="default" size="middle" value="search" onclick="onsearchbutclick"></wxc-button>
     </div>
     <scroller class="lower" id="lower">
        <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-list>
@@ -19,7 +20,8 @@
 
 <style>
 .searchBar {
-  flex: 2;
+  border-style: solid;
+  flex: 3;
 }
 
 .upper {
@@ -28,7 +30,6 @@
 }
 
 .but {
-  background-color: red;
   flex: 1;
 }
 
@@ -42,12 +43,17 @@
 </style>
 
 <script>
+  require('weex-components');
+  require('./components/mc-block-row.we')
   var sqliteModules = require('@weex-module/sqlitemodule');
   var navigator = require('@weex-module/navigator');
+  var modal = require('@weex-module/modal');
+  var storage = require('@weex-module/storage');
   module.exports = {
     data: {
       row: [
-      ]
+      ],
+      added_item: 0
     },
     created: function() {
       var self = this;
@@ -74,15 +80,26 @@
           }
         }
       )
-      this.$on("pressingId", function(e) {
-        sqliteModules.logToast(e.detail);
+      this.$on("additem2shoppinglist", function(e) {
+        this.added_item++;
+        modal.toast({'message': "item added", 'duration': 1});
+        storage.setItem("added_item", this.added_item, function(e) {
+        });
       });
     },
     methods: {
-      onclicksearch: function(e) {
+      onsearchbutclick: function(e) {
         var params = {
-          'url': "file://assets/weex/mc-np.js",
-          'animated' : 'true'
+          'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item,
+          'animated': 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+      },
+      onshoppinglistclick: function(e) {
+        var params = {
+          'url': "file://assets/weex/pages/mc-splist.js",
+          'animated': 'true'
         };
         navigator.push(params, function(e) {
         });

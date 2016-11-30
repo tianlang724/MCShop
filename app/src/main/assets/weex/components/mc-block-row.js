@@ -49,7 +49,7 @@
 	var __weex_style__ = __webpack_require__(6)
 	var __weex_script__ = __webpack_require__(7)
 
-	__weex_define__('@weex-component/197c5097a4d15b5f4f60d59f7d5ed4dc', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/1d2c902db95880c7b81d6da2cd60379e', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -62,7 +62,7 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/197c5097a4d15b5f4f60d59f7d5ed4dc',undefined,undefined)
+	__weex_bootstrap__('@weex-component/1d2c902db95880c7b81d6da2cd60379e',undefined,undefined)
 
 /***/ },
 /* 1 */
@@ -139,12 +139,10 @@
 	    icon_dir: null
 	  }},
 	  created: function created() {
-	    this.baseURL = 'file://assets/weex/';
+	    this.baseURL = 'file://assets/weex/pages/';
 	  },
 	  methods: {
 	    clickitem: function clickitem(e) {
-	      modal.toast({ 'message': this.id, 'duration': 1 });
-
 	      var params = {
 	        'url': this.baseURL + 'mc-formula.js',
 	        'animated': 'true'
@@ -152,12 +150,18 @@
 	      navigator.push(params, function (e) {});
 	    },
 	    longpress: function longpress(e) {
-	      modal.toast({ 'message': "longpress", 'duration': 1 });
+	      var self = this;
 	      modal.confirm({
-	        message: "hello",
-	        okTitle: "hello",
+	        message: "add " + this.name + " to shopping list?",
+	        okTitle: "yes",
 	        cancelTitle: "no"
-	      }, function (result) {});
+	      }, function (res) {
+	        modal.toast({ 'message': res, 'duration': 1 });
+	        if (res == "yes") {
+	          modal.toast({ 'message': "yes click", 'duration': 1 });
+	          self.$dispatch('additem2shoppinglist', { id: self.id });
+	        }
+	      });
 	    }
 	  }
 	};}

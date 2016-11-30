@@ -40,15 +40,16 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	var __weex_template__ = __webpack_require__(1)
-	var __weex_style__ = __webpack_require__(2)
-	var __weex_script__ = __webpack_require__(3)
+	var __weex_template__ = __webpack_require__(94)
+	var __weex_style__ = __webpack_require__(95)
+	var __weex_script__ = __webpack_require__(96)
 
-	__weex_define__('@weex-component/ad702d4007bc6ff79d0844927f145e72', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/5239ff4129bdaa1b0aa236ca347d8e53', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -61,102 +62,78 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/ad702d4007bc6ff79d0844927f145e72',undefined,undefined)
+	__weex_bootstrap__('@weex-component/5239ff4129bdaa1b0aa236ca347d8e53',undefined,undefined)
 
 /***/ },
-/* 1 */
+
+/***/ 94:
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "type": "div",
+	  "type": "container",
 	  "classList": [
-	    "bundle"
+	    "itemList"
 	  ],
-	  "id": function () {return this.id},
-	  "events": {
-	    "click": "clickitem",
-	    "longpress": "longpress"
-	  },
 	  "children": [
 	    {
-	      "type": "image",
-	      "attr": {
-	        "src": function () {return this.icon_dir}
-	      },
+	      "type": "div",
 	      "classList": [
-	        "pic"
-	      ]
-	    },
-	    {
-	      "type": "text",
-	      "classList": [
-	        "name"
+	        "upper"
 	      ],
-	      "attr": {
-	        "value": function () {return this.name}
-	      }
+	      "children": [
+	        {
+	          "type": "text",
+	          "classList": [
+	            "but"
+	          ],
+	          "events": {
+	            "click": "onclicksearch"
+	          },
+	          "attr": {
+	            "value": "search"
+	          }
+	        }
+	      ]
 	    }
 	  ]
 	}
 
 /***/ },
-/* 2 */
+
+/***/ 95:
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "pic": {
-	    "width": 150,
-	    "height": 150
+	  "text": {
+	    "fontSize": 50
 	  },
-	  "name": {
-	    "fontSize": 20,
-	    "textAlign": "center",
-	    "flex": 1
+	  "upper": {
+	    "flatDirection": "row"
 	  },
-	  "bundle": {
-	    "marginTop": 10,
-	    "marginRight": 10,
-	    "marginBottom": 10,
-	    "marginLeft": 10,
-	    "width": 150,
-	    "height": 200
+	  "but": {
+	    "fontSize": 50,
+	    "backgroundColor": "#FF0000"
 	  }
 	}
 
 /***/ },
-/* 3 */
+
+/***/ 96:
 /***/ function(module, exports) {
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
 
-	var modal = __weex_require__('@weex-module/modal');
 	var navigator = __weex_require__('@weex-module/navigator');
 	module.exports = {
 	  data: function () {return {
-	    id: null,
-	    name: null,
-	    icon_dir: null
+	    text: "helloworld"
 	  }},
-	  created: function created() {
-	    this.baseURL = 'file://assets/weex/';
-	  },
 	  methods: {
-	    clickitem: function clickitem(e) {
-	      modal.toast({ 'message': this.id, 'duration': 1 });
-
+	    onsearchfocus: function onsearchfocus(e) {
 	      var params = {
-	        'url': this.baseURL + 'mc-formula.js',
 	        'animated': 'true'
 	      };
-	      navigator.push(params, function (e) {});
-	    },
-	    longpress: function longpress(e) {
-	      modal.toast({ 'message': "longpress", 'duration': 1 });
-	      modal.confirm({
-	        message: "hello",
-	        okTitle: "hello",
-	        cancelTitle: "no"
-	      }, function (result) {});
+	      navigator.pop(params, function (e) {});
 	    }
 	  }
 	};}
@@ -164,4 +141,5 @@
 
 
 /***/ }
-/******/ ]);
+
+/******/ });

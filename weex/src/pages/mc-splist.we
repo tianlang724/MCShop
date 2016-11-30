@@ -1,0 +1,14 @@
+<template>
+  <text>shopping list item number:{{added_item}}</text>
+</template>
+
+<style>
+</style>
+
+<script>
+  module.exports = {
+    data:{
+      added_item: 0
+    }
+  }
+</script>

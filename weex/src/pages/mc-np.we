@@ -1,0 +1,64 @@
+<template>
+  <container class="wrapper">
+    <div class="upper">
+      <wxc-button class='but' type="default" size="middle" value="{{added_item}}" onclick="onshoppinglistclick"></wxc-button>
+      <input 
+       class="searchBar" 
+        id="searchBar" 
+        type="text"
+        autofocus="false"
+        placeholder="input item name or id"
+        onfocus="onsearchfocus"
+      >
+      </input>
+      <wxc-button class='but' type="default" size="middle" value="search" onclick="onsearchbutclick"></wxc-button>
+    </div>
+    <scroller class="lower" id="lower"></scroller>
+  </container>
+</template>
+
+<style>
+.searchBar {
+  border-style: solid;
+  flex: 3;
+}
+
+.upper {
+  flex-direction: row;
+  flex: 1;
+}
+
+.but {
+  flex: 1;
+}
+
+.lower {
+  flex: 10;
+}
+</style>
+<script>
+  require('weex-components');
+  var navigator = require('@weex-module/navigator');
+  var modal = require('@weex-module/modal');
+  module.exports = {
+    data: {
+      added_item: 0
+    },
+    methods: {
+      onsearchfocus: function(e) {
+        var params = {
+          'animated' : 'true'
+        };
+        navigator.pop(params, function(e) {
+        });
+      }
+    },
+    ready: function() {
+      var url = this.$getConfig().bundleUrl;
+      var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)')
+      var match = url.match(reg);
+      modal.toast({'message': match[1], 'duration': 1});
+      this.added_item = parseInt(match[1]);
+    }
+  }
+</script>

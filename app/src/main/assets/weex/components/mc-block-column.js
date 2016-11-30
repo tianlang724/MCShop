@@ -40,16 +40,15 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __weex_template__ = __webpack_require__(15)
-	var __weex_style__ = __webpack_require__(16)
-	var __weex_script__ = __webpack_require__(17)
+	var __weex_template__ = __webpack_require__(1)
+	var __weex_style__ = __webpack_require__(2)
+	var __weex_script__ = __webpack_require__(3)
 
-	__weex_define__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/de49fa6556ba9ad7394b29f9cbcda2c3', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -62,100 +61,106 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430',undefined,undefined)
+	__weex_bootstrap__('@weex-component/de49fa6556ba9ad7394b29f9cbcda2c3',undefined,undefined)
 
 /***/ },
-
-/***/ 15:
+/* 1 */
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "type": "container",
+	  "type": "div",
 	  "classList": [
-	    "itemList"
+	    "bundle"
 	  ],
+	  "id": function () {return this.id},
+	  "events": {
+	    "click": "clickitem",
+	    "longpress": "longpress"
+	  },
 	  "children": [
 	    {
-	      "type": "div",
+	      "type": "image",
+	      "attr": {
+	        "src": function () {return this.icon_dir}
+	      },
 	      "classList": [
-	        "upper"
-	      ],
-	      "children": [
-	        {
-	          "type": "input",
-	          "classList": [
-	            "searchBar"
-	          ],
-	          "id": "searchBar",
-	          "attr": {
-	            "type": "text",
-	            "autofocus": "false",
-	            "placeholder": "橡木木板"
-	          },
-	          "events": {
-	            "focus": "onsearchfocus"
-	          }
-	        },
-	        {
-	          "type": "text",
-	          "classList": [
-	            "but"
-	          ],
-	          "events": {
-	            "click": "onclicksearch"
-	          },
-	          "attr": {
-	            "value": "search"
-	          }
-	        }
+	        "pic"
 	      ]
+	    },
+	    {
+	      "type": "text",
+	      "classList": [
+	        "name"
+	      ],
+	      "attr": {
+	        "value": function () {return this.name}
+	      }
 	    }
 	  ]
 	}
 
 /***/ },
-
-/***/ 16:
+/* 2 */
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "text": {
-	    "fontSize": 50
+	  "pic": {
+	    "width": 150,
+	    "height": 150
 	  },
-	  "searchBar": {
-	    "fontSize": 50,
-	    "paddingLeft": 10,
-	    "paddingTop": 10,
-	    "paddingRight": 10,
-	    "paddingBottom": 10
+	  "name": {
+	    "fontSize": 20,
+	    "textAlign": "center",
+	    "flex": 1
 	  },
-	  "upper": {
-	    "flexDirection": "row"
-	  },
-	  "but": {
-	    "fontSize": 50,
-	    "backgroundColor": "#FF0000"
+	  "bundle": {
+	    "marginTop": 10,
+	    "marginRight": 10,
+	    "marginBottom": 10,
+	    "marginLeft": 10,
+	    "width": 150,
+	    "height": 200
 	  }
 	}
 
 /***/ },
-
-/***/ 17:
+/* 3 */
 /***/ function(module, exports) {
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
 
+	var modal = __weex_require__('@weex-module/modal');
 	var navigator = __weex_require__('@weex-module/navigator');
 	module.exports = {
 	  data: function () {return {
-	    text: "helloworld"
+	    id: null,
+	    name: null,
+	    icon_dir: null
 	  }},
+	  created: function created() {
+	    this.baseURL = 'file://assets/weex/pages/';
+	  },
 	  methods: {
-	    onsearchfocus: function onsearchfocus(e) {
+	    clickitem: function clickitem(e) {
 	      var params = {
+	        'url': this.baseURL + 'mc-formula.js',
 	        'animated': 'true'
 	      };
-	      navigator.pop(params, function (e) {});
+	      navigator.push(params, function (e) {});
+	    },
+	    longpress: function longpress(e) {
+	      var self = this;
+	      modal.confirm({
+	        message: "add " + this.name + " to shopping list?",
+	        okTitle: "yes",
+	        cancelTitle: "no"
+	      }, function (res) {
+	        modal.toast({ 'message': res, 'duration': 1 });
+	        if (res == "yes") {
+	          modal.toast({ 'message': "yes click", 'duration': 1 });
+	          self.$dispatch('additem2shoppinglist', { id: self.id });
+	        }
+	      });
 	    }
 	  }
 	};}
@@ -163,5 +168,4 @@
 
 
 /***/ }
-
-/******/ });
+/******/ ]);
