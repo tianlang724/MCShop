@@ -12,7 +12,7 @@
       <text class="but" onclick="onclicksearch">search</text>
     </div>
     <scroller class="lower" id="lower">
-       <mc-block-list list="{{list}}"></mc-block-list>
+       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-list>
     </scroller>
   </div>
 </template>
@@ -37,10 +37,7 @@
 }
 
 .wrapper {
-/*
-  margin-left: 10px;
-  margin-right: 10px;
-*/
+
 }
 </style>
 
@@ -49,7 +46,7 @@
   var navigator = require('@weex-module/navigator');
   module.exports = {
     data: {
-      list: [
+      row: [
       ]
     },
     created: function() {
@@ -57,37 +54,24 @@
       sqliteModules.getAllEntriesFromTableItems(
         function(list) {
           for(var i = 0; i < list.length;) {
-            var item = new Object();
-            item.id1 = list[i].id;
-            item.name1 = list[i].name;
-            item.icon_dir1 = list[i].icon_dir;
-            i++;
-            if (i >= list.length) {
-              self.list.push(item);
-              continue;
-            };
-            item.id2 = list[i].id;
-            item.name2 = list[i].name;
-            item.icon_dir2 = list[i].icon_dir;
-            i++;
-            if (i >= list.length) {
-              self.list.push(item);
-              continue;
-            };
-            item.id3 = list[i].id;
-            item.name3 = list[i].name;
-            item.icon_dir3 = list[i].icon_dir;
-            i++;
-            if (i >= list.length) {
-              self.list.push(item);
-              continue;
-            };
-            item.id4 = list[i].id;
-            item.name4 = list[i].name;
-            item.icon_dir4 = list[i].icon_dir;
-            self.list.push(item);
-            i++;
-           }
+            var column = new Object();
+            column.data = new Array();
+            for(var j = 0; j < 4; j++) {
+              var item = new Object();
+              item.id = list[i].id;
+              item.name = list[i].name;
+              item.icon_dir = list[i].icon_dir;
+              column.data.push(item);
+              i++;
+              if (i >= list.length) {
+                self.row.push(column);
+                break;
+              }
+              if (j == 3) {
+                self.row.push(column);
+              }
+            }
+          }
         }
       )
       this.$on("pressingId", function(e) {
