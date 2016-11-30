@@ -40,16 +40,15 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __weex_template__ = __webpack_require__(15)
-	var __weex_style__ = __webpack_require__(16)
-	var __weex_script__ = __webpack_require__(17)
+	var __weex_template__ = __webpack_require__(8)
+	var __weex_style__ = __webpack_require__(9)
+	var __weex_script__ = __webpack_require__(10)
 
-	__weex_define__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/c4f3cc9a991fe7e35b7d3c5f986872b9', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -62,11 +61,17 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430',undefined,undefined)
+	__weex_bootstrap__('@weex-component/c4f3cc9a991fe7e35b7d3c5f986872b9',undefined,undefined)
 
 /***/ },
-
-/***/ 15:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -81,21 +86,6 @@
 	        "upper"
 	      ],
 	      "children": [
-	        {
-	          "type": "input",
-	          "classList": [
-	            "searchBar"
-	          ],
-	          "id": "searchBar",
-	          "attr": {
-	            "type": "text",
-	            "autofocus": "false",
-	            "placeholder": "橡木木板"
-	          },
-	          "events": {
-	            "focus": "onsearchfocus"
-	          }
-	        },
 	        {
 	          "type": "text",
 	          "classList": [
@@ -114,23 +104,15 @@
 	}
 
 /***/ },
-
-/***/ 16:
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = {
 	  "text": {
 	    "fontSize": 50
 	  },
-	  "searchBar": {
-	    "fontSize": 50,
-	    "paddingLeft": 10,
-	    "paddingTop": 10,
-	    "paddingRight": 10,
-	    "paddingBottom": 10
-	  },
 	  "upper": {
-	    "flexDirection": "row"
+	    "flatDirection": "row"
 	  },
 	  "but": {
 	    "fontSize": 50,
@@ -139,8 +121,7 @@
 	}
 
 /***/ },
-
-/***/ 17:
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
@@ -163,5 +144,4 @@
 
 
 /***/ }
-
-/******/ });
+/******/ ]);

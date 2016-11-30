@@ -1,18 +1,18 @@
 <template>
   <container class="bundleRow">
-    <div class="bundle" id="{{id1}}" onclick="clickItem1" onlongpress="longpress">
+    <div class="bundle" id="{{id1}}" onclick="clickItem" onlongpress="longpress">
       <image src="{{icon_dir1}}" class="pics"></image>
       <text class="name">{{name1}}</text>
     </div>
-    <div class="bundle" id="{{id2}}" onclick="clickItem2" onlongpress="longpress">
+    <div class="bundle" id="{{id2}}" onclick="clickItem" onlongpress="longpress">
       <image src="{{icon_dir2}}" class="pics"></image>
       <text class="name">{{name2}}</text>
     </div>
-    <div class="bundle" id="{{id3}}" onclick="clickItem3" onlongpress="longpress">
+    <div class="bundle" id="{{id3}}" onclick="clickItem" onlongpress="longpress">
       <image src="{{icon_dir3}}" class="pics"></image>
       <text class="name">{{name3}}</text>
     </div>
-    <div class="bundle" id="{{id4}}" onclick="clickItem4" onlongpress="longpress">
+    <div class="bundle" id="{{id4}}" onclick="clickItem" onlongpress="longpress">
       <image src="{{icon_dir4}}" class="pics"></image>
       <text class="name">{{name4}}</text>
     </div>
@@ -23,6 +23,7 @@
 
 .bundleRow {
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .pics {
@@ -33,6 +34,7 @@
 .name {
   font-size: 20px;
   text-align: center;
+  flex: 1;
 }
 
 .bundle {
@@ -80,13 +82,24 @@
       clickItem4: function() {
         this.$dispatch("pressingId", this.id4);
       },
-      longpress: function(e) {
-        modal.toast({'message': "longpress", 'duration': 1});
+      clickItem: function(e) {
+        var ele = e.target.attr;
+        modal.toast({'message': ele, 'duration': 1});
+        //this.$dispatch("pressingId", ele);
         var params = {
-          'url': this.baseURL + 'npage.js',
+          'url': this.baseURL + 'mc-formula.js',
           'animated': 'true'
         };
         navigator.push(params, function(e) {
+        });
+      },
+      longpress: function(e) {
+        modal.toast({'message': "longpress", 'duration': 1});
+        modal.confirm({
+          message: "hello",
+          okTitle: "hello",
+           cancelTitle: "no"
+        }, function(result) {
         });
       }
     }

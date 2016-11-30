@@ -81,7 +81,7 @@
 	      ],
 	      "id": function () {return this.id1},
 	      "events": {
-	        "click": "clickItem1",
+	        "click": "clickItem",
 	        "longpress": "longpress"
 	      },
 	      "children": [
@@ -112,7 +112,7 @@
 	      ],
 	      "id": function () {return this.id2},
 	      "events": {
-	        "click": "clickItem2",
+	        "click": "clickItem",
 	        "longpress": "longpress"
 	      },
 	      "children": [
@@ -143,7 +143,7 @@
 	      ],
 	      "id": function () {return this.id3},
 	      "events": {
-	        "click": "clickItem3",
+	        "click": "clickItem",
 	        "longpress": "longpress"
 	      },
 	      "children": [
@@ -174,7 +174,7 @@
 	      ],
 	      "id": function () {return this.id4},
 	      "events": {
-	        "click": "clickItem4",
+	        "click": "clickItem",
 	        "longpress": "longpress"
 	      },
 	      "children": [
@@ -207,7 +207,8 @@
 
 	module.exports = {
 	  "bundleRow": {
-	    "flexDirection": "row"
+	    "flexDirection": "row",
+	    "justifyContent": "space-between"
 	  },
 	  "pics": {
 	    "width": 150,
@@ -215,7 +216,8 @@
 	  },
 	  "name": {
 	    "fontSize": 20,
-	    "textAlign": "center"
+	    "textAlign": "center",
+	    "flex": 1
 	  },
 	  "bundle": {
 	    "marginTop": 10,
@@ -267,13 +269,23 @@
 	    clickItem4: function clickItem4() {
 	      this.$dispatch("pressingId", this.id4);
 	    },
-	    longpress: function longpress(e) {
-	      modal.toast({ 'message': "longpress", 'duration': 1 });
+	    clickItem: function clickItem(e) {
+	      var ele = e.target.attr;
+	      modal.toast({ 'message': ele, 'duration': 1 });
+
 	      var params = {
-	        'url': this.baseURL + 'npage.js',
+	        'url': this.baseURL + 'mc-formula.js',
 	        'animated': 'true'
 	      };
 	      navigator.push(params, function (e) {});
+	    },
+	    longpress: function longpress(e) {
+	      modal.toast({ 'message': "longpress", 'duration': 1 });
+	      modal.confirm({
+	        message: "hello",
+	        okTitle: "hello",
+	        cancelTitle: "no"
+	      }, function (result) {});
 	    }
 	  }
 	};}
