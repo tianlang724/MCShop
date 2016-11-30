@@ -1,17 +1,8 @@
 <template>
   <container class="wrapper">
     <div class="upper">
-      <wxc-button class='but' type="default" size="middle" value="{{added_item}}" onclick="onshoppinglistclick"></wxc-button>
-      <input 
-       class="searchBar" 
-        id="searchBar" 
-        type="text"
-        autofocus="false"
-        placeholder="input item name or id"
-        onfocus="onsearchfocus"
-      >
-      </input>
-      <wxc-button class='but' type="default" size="middle" value="search" onclick="onsearchbutclick"></wxc-button>
+      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
+      <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
     </div>
     <scroller class="lower" id="lower"></scroller>
   </container>
@@ -40,12 +31,14 @@
   require('weex-components');
   var navigator = require('@weex-module/navigator');
   var modal = require('@weex-module/modal');
+  var sqliteModules = require('@weex-module/sqlitemodule');
   module.exports = {
     data: {
-      added_item: 0
+      added_item: 0,
+      searchBarInputTxt:'input item name or id'
     },
     methods: {
-      onsearchfocus: function(e) {
+      searchBarClick: function(e) {
         var params = {
           'animated' : 'true'
         };
@@ -57,8 +50,13 @@
       var url = this.$getConfig().bundleUrl;
       var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)')
       var match = url.match(reg);
-      modal.toast({'message': match[1], 'duration': 1});
+      //modal.toast({'message': match[1], 'duration': 1});
       this.added_item = parseInt(match[1]);
+      reg= new RegExp('[?|&]' + "searchtxt" + '=([^&]+)')
+      match = url.match(reg);
+      this.searchBarInputTxt=match[1];
+      var txt= this.searchBarInputTxt;
+      //modal.toast({'message': txt, 'duration': 1});
     }
   }
 </script>
