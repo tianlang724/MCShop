@@ -1,0 +1,26 @@
+<template>
+  <container class="row">
+    <mc-sp-column  
+      repeat="{{row}}" 
+      id="{{id}}"
+      name="{{name}}"
+      icon_dir="{{icon_dir}}"
+    >
+    </mc-sp-column>
+  </container>
+</template>
+
+<style>
+.row {
+
+}
+</style>
+<script>
+  module.exports = {
+    data: {
+      row: []
+    },
+    methods: {
+    }
+  }
+</script>

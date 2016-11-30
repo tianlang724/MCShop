@@ -1,7 +1,12 @@
 <template>
-  <div class="bundle" id="{{id}}" onclick="clickitem" onlongpress="longpress">
-    <image src="{{icon_dir}}" class="pic"></image>
-    <text class="name">{{name}}</text>
+  <div class="bundle">
+    <div class="item" id="{{id}}" onclick="clickitem" onlongpress="longpress">
+      <image src="{{icon_dir}}" class="pic"></image>
+      <text class="name">{{name}}</text>
+    </div>
+    <div>
+      <text class="number">{{item_num}}</text>
+    </div>
   </div>
 </template>
 
@@ -17,14 +22,27 @@
   flex: 1;
 }
 
-.bundle {
+.item {
   margin-top: 10px;
   margin-right: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
   width: 150px;
   height: 200px;
+  flex: 1;
 }
+
+.number {
+  font-size: 40px;
+  flex: 1;
+}
+
+.bundle {
+  flex-direction: row;
+  width: 200px;
+  height: 250px;
+}
+
 </style>
 
 <script>
@@ -36,7 +54,8 @@
       item: null,
       name: null,
       id: null,
-      icon_dir: null
+      icon_dir: null,
+      item_num: 0
     },
     created: function() {
       this.baseURL = 'file://assets/weex/pages/';
@@ -49,28 +68,13 @@
     methods: {
       clickitem: function(e) {
         var params = {
-          'url': this.baseURL + 'mc-formula.js?id='+this.id,
+          'url': this.baseURL + 'mc-formula.js',
           'animated': 'true'
         };
         navigator.push(params, function(e) {
         });
       },
       longpress: function(e) {
-        var self = this;
-        modal.confirm({
-          message: "add " + this.item.name + " to shopping list?",
-          okTitle: "yes",
-          cancelTitle: "no"
-        }, function(res) {
-          modal.toast({'message': res, 'duration': 1});
-          if(res == "yes") {
-            modal.toast({'message': "yes click", 'duration': 1});
-            sqliteModules.insertItemToShoppingList(self.item, function(res) {
-              
-            });
-            self.$dispatch('additem2shoppinglist', {id: self.id});
-          }
-        });
       }
     }
   }
