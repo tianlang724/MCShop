@@ -57,7 +57,6 @@
   var sqliteModules = require('@weex-module/sqlitemodule');
   var navigator = require('@weex-module/navigator');
   var modal = require('@weex-module/modal');
-  var storage = require('@weex-module/storage');
   module.exports = {
     data: {
       row: [
@@ -91,9 +90,8 @@
         }
       )
       this.$on("additem2shoppinglist", function(e) {
-        this.added_item++;
-        modal.toast({'message': "item added", 'duration': 1});
-        storage.setItem("added_item", this.added_item, function(e) {
+        sqliteModules.showItemNumberInShoppingList(function(res) {
+          self.added_item = res;
         });
       });
     },

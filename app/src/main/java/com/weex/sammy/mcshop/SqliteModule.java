@@ -26,6 +26,33 @@ public class SqliteModule extends WXModule{
     }
 
     @WXModuleAnno
+    public void getAllItemFromShoppingList(JSCallback callback) {
+        List<MCItem> items = MCShoppingListHelper.mShoppingList;
+        if(items.isEmpty()) {
+            callback.invoke("null");
+        }
+        callback.invoke(items);
+    }
+
+    @WXModuleAnno
+    public void insertItemToShoppingList(MCItem item, JSCallback callback) {
+        MCShoppingListHelper.insertItemToShoppingList(item);
+        callback.invoke("added");
+    }
+
+    @WXModuleAnno
+    public void showItemNumber(MCItem item, JSCallback callback) {
+        int number = MCShoppingListHelper.showItemNumber(item);
+        callback.invoke(number);
+    }
+
+    @WXModuleAnno
+    public void showItemNumberInShoppingList(JSCallback callback) {
+        int number = MCShoppingListHelper.mShoppingList.size();
+        callback.invoke(number);
+    }
+
+    @WXModuleAnno
     public void logToast(String info) {
         Toast.makeText(mWXSDKInstance.getContext(), info, Toast.LENGTH_SHORT).show();
     }
