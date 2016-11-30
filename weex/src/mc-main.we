@@ -42,6 +42,7 @@
 </style>
 
 <script>
+  require('./components/mc-block-row.we')
   var sqliteModules = require('@weex-module/sqlitemodule');
   var navigator = require('@weex-module/navigator');
   module.exports = {
@@ -81,7 +82,7 @@
     methods: {
       onclicksearch: function(e) {
         var params = {
-          'url': "file://assets/weex/mc-np.js",
+          'url': "file://assets/weex/pages/mc-np.js",
           'animated' : 'true'
         };
         navigator.push(params, function(e) {

@@ -49,7 +49,7 @@
 	var __weex_style__ = __webpack_require__(16)
 	var __weex_script__ = __webpack_require__(17)
 
-	__weex_define__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430', [], function(__weex_require__, __weex_exports__, __weex_module__) {
+	__weex_define__('@weex-component/f4afc3b189eae6f3f4bb57e7ec820c8f', [], function(__weex_require__, __weex_exports__, __weex_module__) {
 
 	    __weex_script__(__weex_module__, __weex_exports__, __weex_require__)
 	    if (__weex_exports__.__esModule && __weex_exports__.default) {
@@ -62,7 +62,7 @@
 
 	})
 
-	__weex_bootstrap__('@weex-component/3728c5209fea8ebeac2c9d4bc9622430',undefined,undefined)
+	__weex_bootstrap__('@weex-component/f4afc3b189eae6f3f4bb57e7ec820c8f',undefined,undefined)
 
 /***/ },
 
@@ -119,22 +119,16 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "text": {
-	    "fontSize": 50
-	  },
 	  "searchBar": {
-	    "fontSize": 50,
-	    "paddingLeft": 10,
-	    "paddingTop": 10,
-	    "paddingRight": 10,
-	    "paddingBottom": 10
+	    "flex": 2
 	  },
 	  "upper": {
 	    "flexDirection": "row"
 	  },
 	  "but": {
-	    "fontSize": 50,
-	    "backgroundColor": "#FF0000"
+	    "fontSize": 30,
+	    "backgroundColor": "#FF0000",
+	    "flex": 1
 	  }
 	}
 

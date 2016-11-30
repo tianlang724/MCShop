@@ -16,15 +16,8 @@
 </template>
 
 <style>
-.text {
-  font-size: 50px;
-}
 .searchBar {
-  font-size: 50px;
-  padding-left: 10px;
-  padding-top: 10px;
-  padding-right: 10px;
-  padding-bottom: 10px;
+  flex: 2;
 }
 
 .upper {
@@ -32,8 +25,9 @@
 }
 
 .but {
-  font-size: 50px;
+  font-size: 30px;
   background-color: red;
+  flex: 1;
 }
 </style>
 <script>

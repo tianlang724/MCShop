@@ -37,7 +37,7 @@
       icon_dir: null
     },
     created: function() {
-      this.baseURL = 'file://assets/weex/';
+      this.baseURL = 'file://assets/weex/pages/';
     },
     methods: {
       clickitem: function(e) {
