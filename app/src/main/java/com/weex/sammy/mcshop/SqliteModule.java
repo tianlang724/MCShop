@@ -41,9 +41,15 @@ public class SqliteModule extends WXModule{
     }
 
     @WXModuleAnno
-    public void showItemNumber(MCItem item, JSCallback callback) {
-        int number = MCShoppingListHelper.showItemNumber(item);
+    public void showItemNumber(String id, JSCallback callback) {
+        int number = MCShoppingListHelper.showItemNumber(id);
         callback.invoke(number);
+    }
+
+    @WXModuleAnno
+    public void updateItemNumber(String id, String num, JSCallback callback) {
+        MCShoppingListHelper.mShoppingMap.put(id, num);
+        callback.invoke("update");
     }
 
     @WXModuleAnno

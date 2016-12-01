@@ -105,10 +105,10 @@
         });
       },
       searchBarInput:function (e) {
-        this.searchbarInputTxt=e.value;
+        this.searchbarInputTxt = e.value;
       },
       searchButClick:function(e){
-        var txt=this.searchbarInputTxt;
+        var txt = this.searchbarInputTxt;
         //modal.toast({'message': txt, 'duration': 1});
         var params = {
         'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item+"&searchtxt="+txt,
