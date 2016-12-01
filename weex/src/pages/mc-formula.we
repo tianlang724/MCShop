@@ -29,22 +29,21 @@
 }
 .upper {
   flat-direction: row;
-
 }
-.formula{
+.formula {
   justify-content:center;
   align-items:center;
 }
-.details{
+.details {
   justify-content:center;
   align-items:center;
 }
-.pic{
+.pic {
   width: 200px;
   height: 200px;
   border-width: 2px;
 }
-.furnace{
+.furnace {
   flat-direction: row;
   justify-content:center;
 }
@@ -94,7 +93,7 @@
           //self.isRequireFurnace="1";
           if(self.isRequireFurnace==="1")
           {
-              self.src=list[0].icon_dir;
+              self.src=list[0].icon;
               self.isRequireFurnace=true;
               return;
           }
@@ -107,12 +106,12 @@
               if(list[i]===null){
                 item.id = null;
                 item.name = "empty";
-                item.icon_dir = null;
+                item.icon = null;
               }
               else{
                   item.id = list[i].id;
                   item.name = list[i].name;
-                  item.icon_dir = list[i].icon_dir;
+                  item.icon = list[i].icon;
               }
               column.data.push(item);
               i++;

@@ -1,7 +1,7 @@
 <template>
   <div class="bundle">
-    <div class="item" id="{{id}}" onclick="itemClick" onlongpress="itemLongpress">
-      <image src="{{icon_dir}}" class="pic"></image>
+    <div class="item" id="{{_id}}" onclick="itemClick" onlongpress="itemLongpress">
+      <mc-item icon="{{icon}}" name="{{name}}" _id="{{_id}}" class="pic"></mc-item>
     </div>
   </div>
 </template>
@@ -48,36 +48,18 @@
 <script>
   var sqliteModules = require('@weex-module/sqlitemodule');
   var modal = require('@weex-module/modal');
-  var navigator = require('@weex-module/navigator');
   module.exports = {
     data: {
-      item: null,
       name: null,
-      id: null,
-      icon_dir: null,
-      item_num: 0
+      _id: null,
+      icon: null
     },
     created: function() {
-      this.baseURL = 'file://assets/weex/pages/';
-      var item = new Object();
-      item.name = this.name;
-      item.id = this.id;
-      item.icon_dir = this.icon_dir;
-      this.item = item;
     },
     methods: {
-      itemClick: function(e) {
-        var params = {
-          'url': this.baseURL + 'mc-formula.js?id='+this.id,
-          'animated': 'true'
-        };
-        navigator.push(params, function(e) {
-        });
-      },
       itemLongpress:function () {
-        var name=this.name;
+        var name = this.name;
         modal.toast({'message':name,'duration':'0'});
-        /* body... */
       }
     }
   }
