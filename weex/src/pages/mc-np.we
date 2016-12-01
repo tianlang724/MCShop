@@ -38,7 +38,6 @@
 }
 </style>
 <script>
-  require('weex-components');
   var navigator = require('@weex-module/navigator');
   var modal = require('@weex-module/modal');
   var sqliteModules = require('@weex-module/sqlitemodule');
@@ -64,11 +63,11 @@
       var url = this.$getConfig().bundleUrl;
       var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)')
       var match = url.match(reg);
-      //modal.toast({'message': match[1], 'duration': 1});
       this.added_item = parseInt(match[1]);
       reg= new RegExp('[?|&]' + "searchtxt" + '=([^&]+)')
       match = url.match(reg);
       this.searchBarInputTxt=match[1];
+<<<<<<< HEAD
       //var txt= this.searchBarInputTxt;
       //modal.toast({'message': txt, 'duration': 1});  
       sqliteModules.getItemFromIdOrName(self.searchBarInputTxt,
@@ -104,8 +103,15 @@
         this.added_item++;
         modal.toast({'message': "item added", 'duration': 1});
         storage.setItem("added_item", this.added_item, function(e) {
+=======
+      modal.toast({'message': match[1], 'duration': 1});
+      sqliteModules.getItemFromIdOrName(this.searchBarInputTxt, 
+        function(list) {
+          modal.toast({'message': list.length, 'duration': 1});
+>>>>>>> 9837b5db17271b21dbbf176d54c54d54df0d4317
         });
-      });
     },
+    created: function() {
+    }
   }
 </script>

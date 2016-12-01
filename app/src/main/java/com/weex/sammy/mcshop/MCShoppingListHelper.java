@@ -22,10 +22,9 @@ public class MCShoppingListHelper {
             mShoppingList.add(item);
         }
     }
-    public static int showItemNumber(MCItem item) {
-        if(mShoppingMap.containsKey(item.id)) {
-            int number = Integer.parseInt(mShoppingMap.get(item.id));
-            number++;
+    public static int showItemNumber(String id) {
+        if(mShoppingMap.containsKey(id)) {
+            int number = Integer.parseInt(mShoppingMap.get(id));
             return number;
         } else {
             return 0;

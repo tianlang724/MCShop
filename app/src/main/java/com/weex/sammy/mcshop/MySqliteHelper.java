@@ -103,7 +103,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         MCItem item = new MCItem();
         String selection = "id=?";
         String[] selectionArgs = {id};
-        String[] projection = {"id", "name", "icon", "formula"};
+        String[] projection = null;
 
 
         Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
@@ -143,14 +143,17 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     public List<MCItem> getItemFromIdOrName(String idOrName) {
         List<MCItem> items = new ArrayList<MCItem>();
-        String selection = "id=?";
-        String[] selectionArgs = {idOrName};
-        String[] projection = {"id", "name", "icon", "formula"};
+        String selection = "id=? or name LIKE ?";
+        String[] selectionArgs = {idOrName, "%"+idOrName+"%"};
+        String[] projection = null;
 
         Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
+        int ret = c.getCount();
         if(c.getCount() == 0) return null;
+        c.moveToFirst();
         for(int i = 0; i < c.getCount(); i++) {
-            items.add(getItemFromId(c.getString(c.getColumnIndexOrThrow("id"))));
+            MCItem item = getItemFromId(c.getString(c.getColumnIndexOrThrow("id")));
+            items.add(item);
         }
         return items;
     }
