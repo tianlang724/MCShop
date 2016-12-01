@@ -82,7 +82,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     }
 
     public List<MCItem> getAllEntriesFromTableItems() {
-        String[] projection = {"id", "name", "icon", "formula"};
+        String[] projection = {"id", "name", "icon"};
         Cursor c = mDatabase.query("items", projection, null, null, null, null, null);
         int numberOfItems = c.getCount();
         c.moveToFirst();
@@ -90,9 +90,8 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         for(int i = 0; i < numberOfItems; i++) {
             MCItem item = new MCItem();
             item.name = c.getString(c.getColumnIndexOrThrow("name"));
-            item.icon_dir = c.getString(c.getColumnIndexOrThrow("icon"));
+            item.icon = c.getString(c.getColumnIndexOrThrow("icon"));
             item.id = c.getString(c.getColumnIndexOrThrow("id"));
-            item.formula = c.getString(c.getColumnIndexOrThrow("formula"));
             itemList.add(item);
             c.moveToNext();
         }
@@ -110,9 +109,8 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         if(c.getCount() == 0) return null;
         c.moveToFirst();
         item.name = c.getString(c.getColumnIndexOrThrow("name"));
-        item.icon_dir = c.getString(c.getColumnIndexOrThrow("icon"));
+        item.icon = c.getString(c.getColumnIndexOrThrow("icon"));
         item.id = c.getString(c.getColumnIndexOrThrow("id"));
-        item.formula = c.getString(c.getColumnIndexOrThrow("formula"));
         return item;
     }
 
@@ -154,6 +152,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         for(int i = 0; i < c.getCount(); i++) {
             MCItem item = getItemFromId(c.getString(c.getColumnIndexOrThrow("id")));
             items.add(item);
+            c.moveToNext();
         }
         return items;
     }

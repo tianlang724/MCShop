@@ -1,14 +1,14 @@
 <template>
   <div class="bundle">
-    <div class="item" id="{{id}}" onclick="clickitem" onlongpress="longpress">
-      <image src="{{icon_dir}}" class="pic"></image>
+    <div class="item" id="{{id}}">
+      <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" class="pic"></mc-item>
     </div>
     <div class="name">
       <text>{{name}}</text>
     </div>
     <div class="tools">
       <text class="des">-</text>
-      <text class="number">{{item_num}}</text>
+      <text class="number">{{itemNumInSp}}</text>
       <text class="inc">+</text>
     </div>
   </div>
@@ -59,40 +59,24 @@
 </style>
 
 <script>
+  require('./mc-item.we');
   var sqliteModules = require('@weex-module/sqlitemodule');
   var modal = require('@weex-module/modal');
   var navigator = require('@weex-module/navigator');
   module.exports = {
     data: {
-      item: null,
       name: null,
-      id: null,
-      icon_dir: null,
-      item_num: null
+      _id: null,
+      icon: null,
+      itemNumInSp: null
     },
     created: function() {
-      this.baseURL = 'file://assets/weex/pages/';
-      var item = new Object();
-      item.name = this.name;
-      item.id = this.id;
-      item.icon_dir = this.icon_dir;
-      this.item = item;
       var self = this;
-      sqliteModules.showItemNumber(this.id, function(num) {
-        self.item_num = num;
+      sqliteModules.showItemNumber(this._id, function(num) {
+        self.itemNumInSp = num;
       });
     },
     methods: {
-      clickitem: function(e) {
-        var params = {
-          'url': this.baseURL + 'mc-formula.js',
-          'animated': 'true'
-        };
-        navigator.push(params, function(e) {
-        });
-      },
-      longpress: function(e) {
-      }
     }
   }
 </script>

@@ -2,7 +2,7 @@
   <div class="wrapper">
     <text class="title">Shopping List</text>
     <scroller class="shopCar" id="shopCar">
-      <mc-sp-row row="{{row}}"></mc-sp-row>
+      <mc-sp-one-line row="{{row}}"></mc-sp-one-line>
     </scroller>
     <text class="functionBar">Function Bar</text>
   </div>
@@ -30,7 +30,7 @@
 </style>
 
 <script>
-  require('../components/mc-sp-row.we');
+  require('../components/mc-sp-one-line.we');
   var sqliteModules = require('@weex-module/sqlitemodule');
   var modal = require('@weex-module/modal');
   module.exports = {
@@ -49,7 +49,7 @@
             var item = new Object();
             item.id = list[i].id;
             item.name = list[i].name;
-            item.icon_dir = list[i].icon_dir;
+            item.icon = list[i].icon;
             self.row.push(item);
           }
       });

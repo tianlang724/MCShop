@@ -9,6 +9,5 @@ import com.taobao.weex.common.IWXObject;
 public class MCItem implements IWXObject {
     public String id;
     public String name;
-    public String icon_dir;
-    public String formula;
+    public String icon;
 }
