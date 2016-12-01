@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">  
     <div class="upper">
-      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
+      <text class='but' onclick="onshoppinglistclick">{{itemNumInSp}}</text>
       <input 
         class="searchBar" 
         id="searchBar" 
@@ -15,7 +15,7 @@
       <text class='but' onclick="searchButClick">search</text>
     </div>
     <scroller class="lower" id="lower">
-       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
+       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
     </scroller>
   </div>
 </template>
@@ -52,8 +52,7 @@
 </style>
 
 <script>
-  require('weex-components');
-  require('./components/mc-block-row.we')
+  require('./components/mc-item-one-line.we');
   var sqliteModules = require('@weex-module/sqlitemodule');
   var navigator = require('@weex-module/navigator');
   var modal = require('@weex-module/modal');
@@ -61,7 +60,7 @@
     data: {
       row: [
       ],
-      added_item: 0,
+      itemNumInSp: 0,
       searchbarInputTxt:''
     },
     created: function() {
@@ -75,7 +74,7 @@
               var item = new Object();
               item.id = list[i].id;
               item.name = list[i].name;
-              item.icon_dir = list[i].icon_dir;
+              item.icon = list[i].icon;
               column.data.push(item);
               i++;
               if (i >= list.length) {
@@ -91,7 +90,7 @@
       )
       this.$on("additem2shoppinglist", function(e) {
         sqliteModules.showItemNumberInShoppingList(function(res) {
-          self.added_item = res;
+          self.itemNumInSp = res;
         });
       });
     },

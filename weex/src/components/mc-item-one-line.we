@@ -1,12 +1,12 @@
 <template>
   <container class="row">
-    <mc-block-column  
+    <mc-item-with-name  
       repeat="{{row}}" 
-      id="{{id}}"
+      _id="{{id}}"
       name="{{name}}"
-      icon_dir="{{icon_dir}}"
+      icon="{{icon}}"
     >
-    </mc-block>
+    </mc-item-with-name>
   </container>
 </template>
 
@@ -17,6 +17,7 @@
 }
 </style>
 <script>
+  require("./mc-item-with-name.we");
   module.exports = {
     data: {
       row: []
