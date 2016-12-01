@@ -22,31 +22,31 @@
 
 <style>
 .searchBar {
-  border-left: 5px;
-  border-right: 5px;
-  border-style: solid;
+  border-left-width: 2px;
+  border-right-width: 2px; 
   border-left-style: solid;
-  border-right-style: solid;  
+  border-right-style: solid;   
+  border-color:#000000 ;
   flex: 3;
 }
 
 .upper {
   flex-direction: row;
   flex: 1;
+  align-items:center;
 }
 
 .but {
   flex: 1;
   text-align: center;
   font-size: 35;
-
 }
 
 .lower {
-  flex: 10;
+  flex: 12;
 }
 
-.wrapper {
+.wrapper{
 
 }
 </style>
@@ -108,7 +108,12 @@
         this.searchbarInputTxt = e.value;
       },
       searchButClick:function(e){
-        var txt = this.searchbarInputTxt;
+        var txt=this.searchbarInputTxt;
+        if(txt==='')
+        {
+           modal.toast({'message': 'please input item name or id', 'duration': 1});
+           return ;
+        }
         //modal.toast({'message': txt, 'duration': 1});
         var params = {
         'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item+"&searchtxt="+txt,

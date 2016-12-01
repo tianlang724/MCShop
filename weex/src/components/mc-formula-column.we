@@ -1,6 +1,6 @@
 <template>
   <div class="bundle">
-    <div class="item" id="{{id}}" onclick="itemClick">
+    <div class="item" id="{{id}}" onclick="itemClick" onlongpress="itemLongpress">
       <image src="{{icon_dir}}" class="pic"></image>
     </div>
   </div>
@@ -10,15 +10,19 @@
 .pic {
   width: 150px;
   height: 150px;
+  background-color: #FFFFFF;
 }
 
 .item {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
+  justify-content:center;
+  align-items:center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
   width: 150px;
-  height: 200px;
+  height: 150px;
+  background-color: #8F4F03;
   flex: 1;
 }
 
@@ -28,9 +32,15 @@
 }
 
 .bundle {
+  justify-content:center;
+  align-items:center;
   flex-direction: row;
   width: 200px;
-  height: 250px;
+  height: 200px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #000000;
+  background-color: #8F4F03;
 }
 
 </style>
@@ -57,8 +67,17 @@
     },
     methods: {
       itemClick: function(e) {
+        var params = {
+          'url': this.baseURL + 'mc-formula.js?id='+this.id,
+          'animated': 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+      },
+      itemLongpress:function () {
         var name=this.name;
         modal.toast({'message':name,'duration':'0'});
+        /* body... */
       }
     }
   }
