@@ -1,6 +1,6 @@
 <template>
   <div class="bundle">
-    <div class="item" id="{{id}}" onclick="itemClick">
+    <div class="item" id="{{id}}" onclick="itemClick" onlongpress="itemLongpress">
       <image src="{{icon_dir}}" class="pic"></image>
     </div>
   </div>
@@ -67,8 +67,17 @@
     },
     methods: {
       itemClick: function(e) {
+        var params = {
+          'url': this.baseURL + 'mc-formula.js?id='+this.id,
+          'animated': 'true'
+        };
+        navigator.push(params, function(e) {
+        });
+      },
+      itemLongpress:function () {
         var name=this.name;
         modal.toast({'message':name,'duration':'0'});
+        /* body... */
       }
     }
   }

@@ -67,12 +67,10 @@
       reg= new RegExp('[?|&]' + "searchtxt" + '=([^&]+)')
       match = url.match(reg);
       this.searchBarInputTxt=match[1];
-<<<<<<< HEAD
       //var txt= this.searchBarInputTxt;
       //modal.toast({'message': txt, 'duration': 1});  
       sqliteModules.getItemFromIdOrName(self.searchBarInputTxt,
-        function (list) {
-          modal.toast({'message': list.length, 'duration': 1});  
+        function (list) { 
           for(var i = 0; i < list.length;) {
             var column = new Object();
             column.data = new Array();
@@ -103,15 +101,8 @@
         this.added_item++;
         modal.toast({'message': "item added", 'duration': 1});
         storage.setItem("added_item", this.added_item, function(e) {
-=======
-      modal.toast({'message': match[1], 'duration': 1});
-      sqliteModules.getItemFromIdOrName(this.searchBarInputTxt, 
-        function(list) {
-          modal.toast({'message': list.length, 'duration': 1});
->>>>>>> 9837b5db17271b21dbbf176d54c54d54df0d4317
         });
-    },
-    created: function() {
-    }
+    });
+  }
   }
 </script>

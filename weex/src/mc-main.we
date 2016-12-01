@@ -108,17 +108,13 @@
         this.searchbarInputTxt = e.value;
       },
       searchButClick:function(e){
-<<<<<<< HEAD
         var txt=this.searchbarInputTxt;
         if(txt==='')
         {
            modal.toast({'message': 'please input item name or id', 'duration': 1});
            return ;
         }
-=======
-        var txt = this.searchbarInputTxt;
         //modal.toast({'message': txt, 'duration': 1});
->>>>>>> 9837b5db17271b21dbbf176d54c54d54df0d4317
         var params = {
         'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item+"&searchtxt="+txt,
         'animated': 'true'
