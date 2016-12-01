@@ -12,19 +12,27 @@
 
 <style>
 .searchBar {
-  border-style: solid;
+  border-left-width: 2px;
+  border-right-width: 2px; 
+  border-left-style: solid;
+  border-right-style: solid;   
+  border-color:#000000 ;
   flex: 3;
+  font-size: 35;
+  text-align: center;
 }
 
 .upper {
   flex-direction: row;
   flex: 1;
+  align-items:center;
 }
 
 .but {
   flex: 1;
+  text-align: center;
+  font-size: 35;
 }
-
 .lower {
   flex: 10;
 }
@@ -52,6 +60,7 @@
       }
     },
     ready: function() {
+      var self=this;
       var url = this.$getConfig().bundleUrl;
       var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)')
       var match = url.match(reg);
@@ -61,12 +70,10 @@
       match = url.match(reg);
       this.searchBarInputTxt=match[1];
       //var txt= this.searchBarInputTxt;
-      //modal.toast({'message': txt, 'duration': 1});      
-    },
-    created: function() {
-      var self = this;
-      sqliteModules.getAllEntriesFromTableItems(
-        function(list) {
+      //modal.toast({'message': txt, 'duration': 1});  
+      sqliteModules.getItemFromIdOrName(self.searchBarInputTxt,
+        function (list) {
+          modal.toast({'message': list.length, 'duration': 1});  
           for(var i = 0; i < list.length;) {
             var column = new Object();
             column.data = new Array();
@@ -86,8 +93,13 @@
               }
             }
           }
-        }
-      )
+        });
+        
+
+
+    },
+    created: function() {
+      var self = this;
       this.$on("additem2shoppinglist", function(e) {
         this.added_item++;
         modal.toast({'message': "item added", 'duration': 1});

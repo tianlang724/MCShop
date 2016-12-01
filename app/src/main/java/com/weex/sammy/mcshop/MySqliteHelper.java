@@ -143,8 +143,8 @@ public class MySqliteHelper extends SQLiteOpenHelper {
 
     public List<MCItem> getItemFromIdOrName(String idOrName) {
         List<MCItem> items = new ArrayList<MCItem>();
-        String selection = "id=? or name like ?";
-        String[] selectionArgs = {idOrName, idOrName};
+        String selection = "id=?";
+        String[] selectionArgs = {idOrName};
         String[] projection = {"id", "name", "icon", "formula"};
 
         Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
