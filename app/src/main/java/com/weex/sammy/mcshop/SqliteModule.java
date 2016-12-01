@@ -53,6 +53,18 @@ public class SqliteModule extends WXModule{
     }
 
     @WXModuleAnno
+    public void getItemFormulaFromId(String id, JSCallback callback) {
+        MCItemFormula formula = MainActivity.sqliteHelper.getItemFormulaFromId(id);
+        callback.invoke(formula);
+    }
+
+    @WXModuleAnno
+    public void getItemFromIdOrName(String idOrName, JSCallback callback) {
+        List<MCItem> items = MainActivity.sqliteHelper.getItemFromIdOrName(idOrName);
+        callback.invoke(items);
+    }
+
+    @WXModuleAnno
     public void logToast(String info) {
         Toast.makeText(mWXSDKInstance.getContext(), info, Toast.LENGTH_SHORT).show();
     }

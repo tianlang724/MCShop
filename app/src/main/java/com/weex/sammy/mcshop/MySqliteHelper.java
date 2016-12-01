@@ -82,7 +82,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     }
 
     public List<MCItem> getAllEntriesFromTableItems() {
-        String[] projection = {"id", "name", "icon"};
+        String[] projection = {"id", "name", "icon", "formula"};
         Cursor c = mDatabase.query("items", projection, null, null, null, null, null);
         int numberOfItems = c.getCount();
         c.moveToFirst();
@@ -92,93 +92,67 @@ public class MySqliteHelper extends SQLiteOpenHelper {
             item.name = c.getString(c.getColumnIndexOrThrow("name"));
             item.icon_dir = c.getString(c.getColumnIndexOrThrow("icon"));
             item.id = c.getString(c.getColumnIndexOrThrow("id"));
+            item.formula = c.getString(c.getColumnIndexOrThrow("formula"));
             itemList.add(item);
             c.moveToNext();
         }
         return itemList;
     }
 
-    public String getNextIdFromTableItems(String currentPosition) {
-        String nextId;
+    public MCItem getItemFromId(String id) {
+        MCItem item = new MCItem();
+        String selection = "id=?";
+        String[] selectionArgs = {id};
+        String[] projection = {"id", "name", "icon", "formula"};
 
-        String[] ids = currentPosition.split(":");
-        if (ids.length != 2) return null;
-        String currentId = ids[0];
-        String currentSid = ids[1];
 
-        String selection = "id=? and sid>?";
-        String[] selectionArgs = {currentId, currentSid};
-        String[] projection = {"id", "sid"};
+        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
+        if(c.getCount() == 0) return null;
+        c.moveToFirst();
+        item.name = c.getString(c.getColumnIndexOrThrow("name"));
+        item.icon_dir = c.getString(c.getColumnIndexOrThrow("icon"));
+        item.id = c.getString(c.getColumnIndexOrThrow("id"));
+        item.formula = c.getString(c.getColumnIndexOrThrow("formula"));
+        return item;
+    }
 
-        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, "id ASC");
-        if (c.getCount() == 0) {
-            selection = "id>? and sid=?";
-            String currentSidTmp = "0";
-            selectionArgs[1] = currentSidTmp;
-            c = mDatabase.query("items", projection, selection, selectionArgs, null, null, "id ASC");
-            if (c.getCount() == 0) {
-                return currentId + ":" + currentSid;
+    public MCItemFormula getItemFormulaFromId(String id) {
+        MCItemFormula formula = new MCItemFormula();
+        String selection = "id=?";
+        String[] selectionArgs = {id};
+        String[] projection = {"formula"};
+
+        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
+        if(c.getCount() == 0) {
+            return null;
+        } else {
+            c.moveToFirst();
+            String formulas = c.getString(c.getColumnIndexOrThrow("formula"));
+            String[] formulaArray = formulas.split("_");
+            formula.outputNumber = formulaArray[0];
+            List<MCItem> formulaList = new ArrayList<>();
+            for(int i = 1; i < 10; i++) {
+                if(formulaArray[i] == null) continue;
+                formulaList.add(getItemFromId(formulaArray[i]));
             }
+            formula.items = formulaList;
+            formula.isRequiredFurnace = formulaArray[10];
+            return formula;
         }
-        c.moveToFirst();
-        String newId = Integer.toString(c.getInt(c.getColumnIndexOrThrow("id")));
-        String newSid = Integer.toString(c.getInt(c.getColumnIndexOrThrow("sid")));
-        nextId = newId + ":" + newSid;
-        return nextId;
     }
 
-    public String getNameByIdFromTableItems(String currentPosition) {
-        String name;
+    public List<MCItem> getItemFromIdOrName(String idOrName) {
+        List<MCItem> items = new ArrayList<MCItem>();
+        String selection = "id=? or name like ?";
+        String[] selectionArgs = {idOrName, idOrName};
+        String[] projection = {"id", "name", "icon", "formula"};
 
-        String[] ids = currentPosition.split(":");
-        if (ids.length != 2) return null;
-        String currentId = ids[0];
-        String currentSid = ids[1];
-
-        String selection = "id=? and sid=?";
-        String[] selectionArgs = {currentId, currentSid};
-        String[] projection = {"name"};
-
-        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, "id ASC");
-        c.moveToFirst();
-        name = c.getString(c.getColumnIndexOrThrow("name"));
-        return name;
-    }
-
-    public String getIconDirByIdFromTableItems(String currentPosition) {
-        String iconDir;
-
-        String[] ids = currentPosition.split(":");
-        if (ids.length != 2) return null;
-        String currentId = ids[0];
-        String currentSid = ids[1];
-
-        String selection = "id=? and sid=?";
-        String[] selectionArgs = {currentId, currentSid};
-        String[] projection = {"icon_dir"};
-
-        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, "id ASC");
-        c.moveToFirst();
-        iconDir = c.getString(c.getColumnIndexOrThrow("icon_dir"));
-        return iconDir;
-    }
-
-    public int isThisItemComposable(String currentPosition) {
-        int composable;
-
-        String[] ids = currentPosition.split(":");
-        if (ids.length != 2) return -1;
-        String currentId = ids[0];
-        String currentSid = ids[1];
-
-        String selection = "id=? and sid=?";
-        String[] selectionArgs = {currentId, currentSid};
-        String[] projection = {"composable"};
-
-        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, "id ASC");
-        c.moveToFirst();
-        composable = c.getInt(c.getColumnIndexOrThrow("composable"));
-        return composable;
+        Cursor c = mDatabase.query("items", projection, selection, selectionArgs, null, null, null);
+        if(c.getCount() == 0) return null;
+        for(int i = 0; i < c.getCount(); i++) {
+            items.add(getItemFromId(c.getString(c.getColumnIndexOrThrow("id"))));
+        }
+        return items;
     }
 
     @Override
