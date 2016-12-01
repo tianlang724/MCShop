@@ -1,0 +1,27 @@
+<template>
+  <container class="row">
+    <mc-formula-column  
+      repeat="{{row}}" 
+      id="{{id}}"
+      name="{{name}}"
+      icon_dir="{{icon_dir}}"
+    >
+    </mc-formula-column>
+  </container>
+</template>
+
+<style>
+.row {
+  flex-direction: row;
+  justify-content: space-between;
+}
+</style>
+<script>
+  module.exports = {
+    data: {
+      row: []
+    },
+    methods: {
+    }
+  }
+</script>

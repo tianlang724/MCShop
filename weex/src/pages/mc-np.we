@@ -4,7 +4,9 @@
       <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
       <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
     </div>
-    <scroller class="lower" id="lower"></scroller>
+    <scroller class="lower" id="lower">
+       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
+    </scroller>
   </container>
 </template>
 
@@ -32,10 +34,13 @@
   var navigator = require('@weex-module/navigator');
   var modal = require('@weex-module/modal');
   var sqliteModules = require('@weex-module/sqlitemodule');
+  require('../components/mc-block-row.we');
   module.exports = {
     data: {
       added_item: 0,
-      searchBarInputTxt:'input item name or id'
+      searchBarInputTxt:'input item name or id',
+      row: [
+      ],
     },
     methods: {
       searchBarClick: function(e) {
@@ -55,8 +60,40 @@
       reg= new RegExp('[?|&]' + "searchtxt" + '=([^&]+)')
       match = url.match(reg);
       this.searchBarInputTxt=match[1];
-      var txt= this.searchBarInputTxt;
-      //modal.toast({'message': txt, 'duration': 1});
-    }
+      //var txt= this.searchBarInputTxt;
+      //modal.toast({'message': txt, 'duration': 1});      
+    },
+    created: function() {
+      var self = this;
+      sqliteModules.getAllEntriesFromTableItems(
+        function(list) {
+          for(var i = 0; i < list.length;) {
+            var column = new Object();
+            column.data = new Array();
+            for(var j = 0; j < 4; j++) {
+              var item = new Object();
+              item.id = list[i].id;
+              item.name = list[i].name;
+              item.icon_dir = list[i].icon_dir;
+              column.data.push(item);
+              i++;
+              if (i >= list.length) {
+                self.row.push(column);
+                break;
+              }
+              if (j == 3) {
+                self.row.push(column);
+              }
+            }
+          }
+        }
+      )
+      this.$on("additem2shoppinglist", function(e) {
+        this.added_item++;
+        modal.toast({'message': "item added", 'duration': 1});
+        storage.setItem("added_item", this.added_item, function(e) {
+        });
+      });
+    },
   }
 </script>

@@ -1,8 +1,16 @@
 <template>
   <container class="itemList">
-    <div class="upper">
-      <text class="but" onclick="onclicksearch">search</text>
-    </div>
+    <div class="upper"></div>
+    <div class="block">
+    <img class="pic" src={{url}}></img>
+    <text class="text">id:{{id}}</text>
+    <text class="text">name:{{name}}</text>
+    </div> 
+    <div class="formula">
+     <mc-formula-row repeat="{{row}}" row="{{data}}"></mc-formula-row>
+    <div>
+  text-align: center;
+
   </container>
 </template>
 
@@ -22,9 +30,16 @@
 </style>
 <script>
   var navigator = require('@weex-module/navigator');
+  var modal = require('@weex-module/modal');
+  require('../components/mc-formula-row.we');
+  var sqliteModules = require('@weex-module/sqlitemodule');
   module.exports = {
     data: {
-      text: "helloworld"
+      id: '0',
+      name: 'Air',
+      url: null,
+      row: [
+      ],
     },
     methods: {
       onsearchfocus: function(e) {
@@ -34,6 +49,38 @@
         navigator.pop(params, function(e) {
         });
       }
+    },
+    ready: function() {
+      var url = this.$getConfig().bundleUrl;
+      var reg = new RegExp('[?|&]' + "id" + '=([^&]+)')
+      var match = url.match(reg);
+      modal.toast({'message': match[1], 'duration': 1});
+      this.id = match[1];   
+      
+      var self = this;
+      sqliteModules.getAllEntriesFromTableItems(
+        function(list) {
+          for(var i = 0; i < 9;) {
+            var column = new Object();
+            column.data = new Array();
+            for(var j = 0; j <3; j++) {
+              var item = new Object();
+              item.id = list[i].id;
+              item.name = list[i].name;
+              item.icon_dir = list[i].icon_dir;
+              column.data.push(item);
+              i++;
+              if (i >= 9) {
+                self.row.push(column);
+                break;
+              }
+              if (j == 2) {
+                self.row.push(column);
+              }
+            }
+          }
+        }
+      )
     }
   }
 </script>
