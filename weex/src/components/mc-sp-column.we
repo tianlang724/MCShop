@@ -2,10 +2,14 @@
   <div class="bundle">
     <div class="item" id="{{id}}" onclick="clickitem" onlongpress="longpress">
       <image src="{{icon_dir}}" class="pic"></image>
-      <text class="name">{{name}}</text>
     </div>
-    <div>
+    <div class="name">
+      <text>{{name}}</text>
+    </div>
+    <div class="tools">
+      <text class="des">-</text>
       <text class="number">{{item_num}}</text>
+      <text class="inc">+</text>
     </div>
   </div>
 </template>
@@ -14,21 +18,16 @@
 .pic {
   width: 150px;
   height: 150px;
+  flex: 1;
 }
 
 .name {
-  font-size: 20px;
+  font-size: 30px;
   text-align: center;
   flex: 1;
 }
 
 .item {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  width: 150px;
-  height: 200px;
   flex: 1;
 }
 
@@ -37,12 +36,26 @@
   flex: 1;
 }
 
-.bundle {
-  flex-direction: row;
-  width: 200px;
-  height: 250px;
+.tools {
+  flex: 1;
 }
 
+.bundle {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.des {
+  font-size: 40px;
+  flex: 1;
+}
+
+.inc {
+  font-size: 40px;
+  flex: 1;
+}
 </style>
 
 <script>
@@ -55,7 +68,7 @@
       name: null,
       id: null,
       icon_dir: null,
-      item_num: 0
+      item_num: null
     },
     created: function() {
       this.baseURL = 'file://assets/weex/pages/';
@@ -64,6 +77,10 @@
       item.id = this.id;
       item.icon_dir = this.icon_dir;
       this.item = item;
+      var self = this;
+      sqliteModules.showItemNumber(this.id, function(num) {
+        self.item_num = num;
+      });
     },
     methods: {
       clickitem: function(e) {

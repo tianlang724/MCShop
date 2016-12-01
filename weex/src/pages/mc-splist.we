@@ -1,10 +1,32 @@
 <template>
-  <scroller class="lower" id="lower">
-    <mc-sp-row row="{{row}}"></mc-sp-row>
-  </scroller>
+  <div class="wrapper">
+    <text class="title">Shopping List</text>
+    <scroller class="shopCar" id="shopCar">
+      <mc-sp-row row="{{row}}"></mc-sp-row>
+    </scroller>
+    <text class="functionBar">Function Bar</text>
+  </div>
 </template>
 
 <style>
+.wrapper {
+  
+}
+
+.title {
+  font-size: 50px;
+  flex: 1;
+}
+
+.shopCar {
+  flex: 10;
+}
+
+.functionBar {
+  font-size: 50px;
+  flex: 1;
+}
+
 </style>
 
 <script>

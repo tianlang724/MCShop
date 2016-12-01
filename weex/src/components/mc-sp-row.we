@@ -1,17 +1,23 @@
 <template>
-  <container class="row">
-    <mc-sp-column  
-      repeat="{{row}}" 
-      id="{{id}}"
-      name="{{name}}"
-      icon_dir="{{icon_dir}}"
-    >
-    </mc-sp-column>
-  </container>
+  <div class="row">
+    <div class="bundle">
+      <mc-sp-column  
+        repeat="{{row}}" 
+        id="{{id}}"
+        name="{{name}}"
+        icon_dir="{{icon_dir}}"
+      >
+      </mc-sp-column>
+    </div>
+  </div>
 </template>
 
 <style>
 .row {
+  flex-direction: row;
+}
+
+.bundle {
 
 }
 </style>
