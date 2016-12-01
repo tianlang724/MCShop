@@ -1,31 +1,52 @@
 <template>
-  <container class="itemList">
-    <div class="upper"></div>
-    <div class="block">
+  <container class="wrapper">
+    <div class="upper">
+    <text class="title">Detail Information:</text>
+    </div>
+    <div class="details">
     <img class="pic" src={{url}}></img>
-    <text class="text">id:{{id}}</text>
-    <text class="text">name:{{name}}</text>
+    <text class="text">id: {{id}}</text>
+    <text class="text">name: {{name}}</text>
     </div> 
     <div class="formula">
      <mc-formula-row repeat="{{row}}" row="{{data}}"></mc-formula-row>
+     <div class="furnace" if="{{isRequireFurnace}}">
+     <img class="pic" src={{urlBlock}}></img>
+     <img class="pic" src={{urlFurnace}}></img>
+     <img class="pic" src={{}} onclick="fuelClick"></img>
+     </div>>
     <div>
-  text-align: center;
-
   </container>
 </template>
 
 <style>
 .text {
-  font-size: 50px;
+  font-size: 30px;
 }
-
+.title{
+   font-size: 40px;
+   justify-content:flex-start;
+}
 .upper {
   flat-direction: row;
-}
 
-.but {
-  font-size: 50px;
-  background-color: red;
+}
+.formula{
+  justify-content:center;
+  align-items:center;
+}
+.details{
+  justify-content:center;
+  align-items:center;
+}
+.pic{
+  width: 200px;
+  height: 200px;
+  border-width: 2px;
+}
+.furnace{
+  flat-direction: row;
+  justify-content:center;
 }
 </style>
 <script>
@@ -40,6 +61,10 @@
       url: null,
       row: [
       ],
+      outputNum:null,
+      isRequireFurnace:false,
+      urlFurnace:'http://ww1.sinaimg.cn/small/bf84af6djw1fab9nlhoh5j20aj06m0te.jpg',
+      urlBlock:''
     },
     methods: {
       onsearchfocus: function(e) {
@@ -48,29 +73,50 @@
         };
         navigator.pop(params, function(e) {
         });
+      },
+      fuelClick:function () 
+      {
+        modal.toast({'message':'please put some fuel', 'duration': 1});
+        /* body... */
       }
     },
     ready: function() {
       var url = this.$getConfig().bundleUrl;
       var reg = new RegExp('[?|&]' + "id" + '=([^&]+)')
       var match = url.match(reg);
-      modal.toast({'message': match[1], 'duration': 1});
-      this.id = match[1];   
-      
+      //modal.toast({'message': match[1], 'duration': 1});
+      this.id = match[1];       
       var self = this;
-      sqliteModules.getAllEntriesFromTableItems(
-        function(list) {
-          for(var i = 0; i < 9;) {
+      sqliteModules.getItemFormulaFromId("256",
+        function (formula) {
+          self.outputNum=formula.outputNum;
+          self.isRequireFurnace=formula.isRequireFurnace;
+          //self.isRequireFurnace="1";
+          if(self.isRequireFurnace==="1")
+          {
+              self.src=list[0].icon_dir;
+              self.isRequireFurnace=true;
+              return;
+          }
+          var list=formula.items;
+           for(var i = 0; i < list.length;) {
             var column = new Object();
             column.data = new Array();
             for(var j = 0; j <3; j++) {
               var item = new Object();
-              item.id = list[i].id;
-              item.name = list[i].name;
-              item.icon_dir = list[i].icon_dir;
+              if(list[i]===null){
+                item.id = null;
+                item.name = "empty";
+                item.icon_dir = null;
+              }
+              else{
+                  item.id = list[i].id;
+                  item.name = list[i].name;
+                  item.icon_dir = list[i].icon_dir;
+              }
               column.data.push(item);
               i++;
-              if (i >= 9) {
+              if (i >= list.length) {
                 self.row.push(column);
                 break;
               }
@@ -79,8 +125,7 @@
               }
             }
           }
-        }
-      )
+        });
     }
   }
 </script>
