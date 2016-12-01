@@ -25,7 +25,7 @@ public class PageActivity extends AbsWeexActivity {
         setContainer((ViewGroup) findViewById(R.id.activity_page));
         setCurrentWxPageActivity(this);
         Uri mUri = getIntent().getData();
-        Toast.makeText(PageActivity.this, mUri.toString(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(PageActivity.this, mUri.toString(), Toast.LENGTH_SHORT).show();
         loadUrl(mUri.toString());
         //eloadUrl("file://assets/weex/mc-np.js");
     }
