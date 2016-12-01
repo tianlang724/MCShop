@@ -2,9 +2,9 @@
   <container class="row">
     <mc-formula-column  
       repeat="{{row}}" 
-      id="{{id}}"
+      _id="{{id}}"
       name="{{name}}"
-      icon_dir="{{icon_dir}}"
+      icon="{{icon}}"
     >
     </mc-formula-column>
   </container>

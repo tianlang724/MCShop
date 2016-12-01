@@ -113,9 +113,8 @@
            modal.toast({'message': 'please input item name or id', 'duration': 1});
            return ;
         }
-        //modal.toast({'message': txt, 'duration': 1});
         var params = {
-        'url': "file://assets/weex/pages/mc-np.js?nitem=" + this.added_item+"&searchtxt="+txt,
+        'url': "file://assets/weex/pages/mc-search-page.js?nitem=" + this.added_item+"&searchtxt="+txt,
         'animated': 'true'
         };
         navigator.push(params, function(e) {
