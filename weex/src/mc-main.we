@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="upper">
-            <text class='but' onclick="shoppingListClick">{{itemNumInSp}}</text>
+            <text class='but' onclick="shoppingListClick">shop</text>
             <input
                     class="searchBar"
                     id="searchBar"
@@ -59,7 +59,6 @@
     module.exports = {
         data: {
             row: [],
-            itemNumInSp: 0,
             searchbarInputTxt: ''
         },
         created: function () {
@@ -67,10 +66,10 @@
             sqliteModule.getAllEntriesFromTableItems(
                     function (list) {
                         for (var i = 0; i < list.length;) {
-                            var column = new Object();
-                            column.data = new Array();
+                            var column = {};
+                            column.data = [];
                             for (var j = 0; j < 4; j++) {
-                                var item = new Object();
+                                var item = {};
                                 item.id = list[i].id;
                                 item.name = list[i].name;
                                 item.icon = list[i].icon;
@@ -88,11 +87,6 @@
                         }
                     }
             )
-            this.$on("additem2shoppinglist", function (e) {
-                sqliteModule.showItemNumberInShoppingList(function (res) {
-                    self.itemNumInSp = res;
-                });
-            });
         },
         methods: {
             shoppingListClick: function (e) {
@@ -118,7 +112,6 @@
                 };
                 navigator.push(params, function (e) {
                 });
-
             }
         }
     }

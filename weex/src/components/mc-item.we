@@ -26,13 +26,15 @@
         },
         methods: {
             clickItem: function (e) {
-                if(this.material == "yes") return;
-                var params = {
-                    "url": "file://assets/weex/pages/" + "mc-formula.js" + "?id=" + this._id,
-                    "animated": "true"
-                };
-                navigator.push(params, function (e) {
-                });
+                modal.toast({"message": this._id, "duration": 1});
+                if(this.material == "no") {
+                    var params = {
+                        "url": "file://assets/weex/pages/" + "mc-composed-table-page.js" + "?id=" + this._id,
+                        "animated": "true"
+                    };
+                    navigator.push(params, function (e) {
+                    });
+                }
             },
         }
     }

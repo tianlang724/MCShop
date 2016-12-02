@@ -42,5 +42,10 @@ public class MainActivity extends AbsWeexActivity {
         //Toast.makeText(MainActivity.this, "Success Rendering", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onDestroy() {
+        sqliteHelper.close();
+    }
+
 }
 

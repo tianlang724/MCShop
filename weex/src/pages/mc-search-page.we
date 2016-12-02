@@ -58,7 +58,12 @@
                 });
             },
             shoppingListClick: function(e) {
-
+                var params = {
+                    'url': "file://assets/weex/pages/mc-splist.js",
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                });
             }
         },
         ready: function () {
@@ -100,6 +105,12 @@
             var self = this;
             sqliteModule.showItemNumberInShoppingList(function (res) {
                 self.itemNumInSp = res;
+            });
+            this.$on("additem2shoppinglist", function (e) {
+                modal.toast({"message": "add a item", "duration": 1});
+                sqliteModule.showItemNumberInShoppingList(function (res) {
+                    self.itemNumInSp = res;
+                });
             });
         }
     }

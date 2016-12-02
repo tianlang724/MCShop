@@ -1,0 +1,82 @@
+<template>
+    <div class="bundle">
+        <div class="item" onclick="clickItem">
+            <image src="{{icon}}" class="icon"></image>
+            <text class="text">{{number}}</text>
+        </div>
+    </div>
+
+</template>
+
+<style>
+    .icon {
+        width: 150px;
+        height: 150px;
+        background-color: #777777;
+    }
+
+    .text {
+        width: 150px;
+        height: 150px;
+        position: absolute;
+        top: 120px;
+        left: 120px;
+        font-size: 20px;
+        color: #FFFFFF;
+    }
+    .item {
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+        width: 150px;
+        height: 150px;
+        background-color: #777777;
+    }
+    .bundle {
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 200px;
+        height: 200px;
+        border-width: 6px;
+        border-style: solid;
+        border-left-color: #444444;
+        border-top-color: #444444;
+        border-right-color: #ffffff;
+        border-bottom-color: #ffffff;
+        background-color: #777777;
+    }
+
+</style>
+
+<script>
+    var navigator = require('@weex-module/navigator');
+    var sqliteModule = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    module.exports = {
+        data: {
+            _id: null,
+            name: null,
+            icon: null,
+            material: null,
+            number: null
+        },
+        created: function () {
+        },
+        methods: {
+            clickItem: function (e) {
+                if(this.material == "no") {
+                    var params = {
+                        "url": "file://assets/weex/pages/" + "mc-formula.js" + "?id=" + this._id,
+                        "animated": "true"
+                    };
+                    navigator.push(params, function (e) {
+                    });
+                }
+            },
+        }
+    }
+</script>

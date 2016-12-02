@@ -1,0 +1,231 @@
+<template>
+    <div class="wrapper">
+        <div class="page_title">
+            <text class="title">composed table</text>
+        </div>
+        <div class="target">
+            <mc-item-with-border _id="{{_id}}" name="{{name}}" icon="{{icon}}" number="{{outputNumber}}"></mc-item-with-border>
+        </div>
+        <div class="table">
+            <mc-composed-table
+                    _id="{{_id}}"
+                    name="{{name}}"
+                    icon="{{icon}}"
+                    outputNumber="{{outputNumber}}"
+                    isRequiredFurnace="{{isRequiredFurnace}}"
+                    tr1tc1_id="{{tr1tc1_id}}"
+                    tr1tc1_name="{{tr1tc1_name}}"
+                    tr1tc1_icon="{{tr1tc1_icon}}"
+                    tr1tc1_material="{{tr1tc1_material}}"
+                    tr1tc2_id="{{tr1tc2_id}}"
+                    tr1tc2_name="{{tr1tc2_name}}"
+                    tr1tc2_icon="{{tr1tc2_icon}}"
+                    tr1tc2_material="{{tr1tc2_material}}"
+                    tr1tc3_id="{{tr1tc3_id}}"
+                    tr1tc3_name="{{tr1tc3_name}}"
+                    tr1tc3_icon="{{tr1tc3_icon}}"
+                    tr1tc3_material="{{tr1tc3_material}}"
+                    tr2tc1_id="{{tr2tc1_id}}"
+                    tr2tc1_name="{{tr2tc1_name}}"
+                    tr2tc1_icon="{{tr2tc1_icon}}"
+                    tr2tc1_material="{{tr2tc1_material}}"
+                    tr2tc2_id="{{tr2tc2_id}}"
+                    tr2tc2_name="{{tr2tc2_name}}"
+                    tr2tc2_icon="{{tr2tc2_icon}}"
+                    tr2tc2_material="{{tr2tc2_material}}"
+                    tr2tc3_id="{{tr2tc3_id}}"
+                    tr2tc3_name="{{tr2tc3_name}}"
+                    tr2tc3_icon="{{tr2tc3_icon}}"
+                    tr2tc3_material="{{tr2tc3_material}}"
+                    tr3tc1_id="{{tr3tc1_id}}"
+                    tr3tc1_name="{{tr3tc1_name}}"
+                    tr3tc1_icon="{{tr3tc1_icon}}"
+                    tr3tc1_material="{{tr3tc1_material}}"
+                    tr3tc2_id="{{tr3tc2_id}}"
+                    tr3tc2_name="{{tr3tc2_name}}"
+                    tr3tc2_icon="{{tr3tc2_icon}}"
+                    tr3tc2_material="{{tr3tc2_material}}"
+                    tr3tc3_id="{{tr3tc3_id}}"
+                    tr3tc3_name="{{tr3tc3_name}}"
+                    tr3tc3_icon="{{tr3tc3_icon}}"
+                    tr3tc3_material="{{tr3tc3_material}}"
+            >
+            </mc-composed-table>
+        </div>
+    </div>
+</template>
+
+<script>
+    require("../components/mc-composed-table.we");
+    require("../components/mc-item-with-border.we");
+    var sqliteModule = require("@weex-module/sqlitemodule");
+    var modal = require("@weex-module/modal");
+    module.exports = {
+        data: {
+            _id: null,
+            name: null,
+            icon: null,
+            outputNumber: null,
+            isRequiredFurnace: null,
+            tr1tc1_id: null,
+            tr1tc1_name: null,
+            tr1tc1_icon: null,
+            tr1tc1_material: null,
+            tr1tc2_id: null,
+            tr1tc2_name: null,
+            tr1tc2_icon: null,
+            tr1tc2_material: null,
+            tr1tc3_id: null,
+            tr1tc3_name: null,
+            tr1tc3_icon: null,
+            tr1tc3_material: null,
+            tr2tc1_id: null,
+            tr2tc1_name: null,
+            tr2tc1_icon: null,
+            tr2tc1_material: null,
+            tr2tc2_id: null,
+            tr2tc2_name: null,
+            tr2tc2_icon: null,
+            tr2tc2_material: null,
+            tr2tc3_id: null,
+            tr2tc3_name: null,
+            tr2tc3_icon: null,
+            tr2tc3_material: null,
+            tr3tc1_id: null,
+            tr3tc1_name: null,
+            tr3tc1_icon: null,
+            tr3tc1_material: null,
+            tr3tc2_id: null,
+            tr3tc2_name: null,
+            tr3tc2_icon: null,
+            tr3tc2_material: null,
+            tr3tc3_id: null,
+            tr3tc3_name: null,
+            tr3tc3_icon: null,
+            tr3tc3_material: null
+        },
+        methods: {},
+        ready: function () {
+            var url = this.$getConfig().bundleUrl;
+            var reg = new RegExp('[?|&]' + "id" + '=([^&]+)');
+            var match = url.match(reg);
+            var id = match[1];
+            var self = this;
+            sqliteModule.getItemFormulaFromId(id, function (formula) {
+                self._id = formula.item.id;
+                self.name = formula.item.name;
+                self.icon = formula.item.icon;
+                self.outputNumber = formula.outputNumber;
+                self.isRequireFurnace = formula.isRequiredFurnace;
+                for (var i = 0; i < formula.items.length; i++) {
+                    switch (formula.items[i].position) {
+                        case 1:
+                        {
+                            self.tr1tc1_id = formula.items[i].id;
+                            self.tr1tc1_name = formula.items[i].name;
+                            self.tr1tc1_icon = formula.items[i].icon;
+                            self.tr1tc1_material = formula.items[i].material;
+                            break;
+                        }
+                        case 2:
+                        {
+                            self.tr1tc2_id = formula.items[i].id;
+                            self.tr1tc2_name = formula.items[i].name;
+                            self.tr1tc2_icon = formula.items[i].icon;
+                            self.tr1tc2_material = formula.items[i].material;
+                            //modal.toast({"message": self.tr1tc2_name, "duration": 1});
+                            break;
+                        }
+
+                        case 3:
+                        {
+                            self.tr1tc3_id = formula.items[i].id;
+                            self.tr1tc3_name = formula.items[i].name;
+                            self.tr1tc3_icon = formula.items[i].icon;
+                            self.tr1tc3_material = formula.items[i].material;
+                            break;
+                        }
+                        case 4:
+                        {
+                            self.tr2tc1_id = formula.items[i].id;
+                            self.tr2tc1_name = formula.items[i].name;
+                            self.tr2tc1_icon = formula.items[i].icon;
+                            self.tr2tc1_material = formula.items[i].material;
+                            break;
+                        }
+                        case 5:
+                        {
+                            self.tr2tc2_id = formula.items[i].id;
+                            self.tr2tc2_name = formula.items[i].name;
+                            self.tr2tc2_icon = formula.items[i].icon;
+                            self.tr2tc2_material = formula.items[i].material;
+                            //modal.toast({"message": self.tr2tc2_name, "duration": 1});
+
+                            break;
+                        }
+                        case 6:
+                        {
+                            self.tr2tc3_id = formula.items[i].id;
+                            self.tr2tc3_name = formula.items[i].name;
+                            self.tr2tc3_icon = formula.items[i].icon;
+                            self.tr2tc3_material = formula.items[i].material;
+                            break;
+                        }
+                        case 7:
+                        {
+                            self.tr3tc1_id = formula.items[i].id;
+                            self.tr3tc1_name = formula.items[i].name;
+                            self.tr3tc1_icon = formula.items[i].icon;
+                            self.tr3tc1_material = formula.items[i].material;
+                            break;
+                        }
+                        case 8:
+                        {
+                            self.tr3tc2_id = formula.items[i].id;
+                            self.tr3tc2_name = formula.items[i].name;
+                            self.tr3tc2_icon = formula.items[i].icon;
+                            self.tr3tc2_material = formula.items[i].material;
+                            //modal.toast({"message": self.tr3tc2_name, "duration": 1});
+
+                            break;
+                        }
+                        case 9:
+                        {
+                            self.tr3tc3_id = formula.items[i].id;
+                            self.tr3tc3_name = formula.items[i].name;
+                            self.tr3tc3_icon = formula.items[i].icon;
+                            self.tr3tc3_material = formula.items[i].material;
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }
+            });
+        }
+    }
+</script>
+
+<style>
+    .wrapper {
+        background-color: #eeeeee;
+    }
+    .page_title {
+        align-items: center;
+        flex: 1;
+    }
+    .title {
+        font-size: 35px;
+        text-align: center;
+    }
+    .target {
+        justify-content: center;
+        align-items: center;
+        flex: 2;
+    }
+    .table {
+        justify-content: center;
+        align-items: center;
+        flex: 6;
+    }
+</style>

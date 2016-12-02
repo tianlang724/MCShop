@@ -1,0 +1,148 @@
+<template>
+    <div class="wrapper">
+        <div class="upper">
+            <text class="formation_title"></text>
+        </div>
+        <div class="table">
+            <div class="row">
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr1tc1_id}}"
+                            name="{{tr1tc1_name}}"
+                            icon="{{tr1tc1_icon}}"
+                            material="{{tr1tc1_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr1tc2_id}}"
+                            name="{{tr1tc2_name}}"
+                            icon="{{tr1tc2_icon}}"
+                            material="{{tr1tc2_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr1tc3_id}}"
+                            name="{{tr1tc3_name}}"
+                            icon="{{tr1tc3_icon}}"
+                            material="{{tr1tc3_material}}"
+                    ></mc-item-with-border>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr2tc1_id}}"
+                            name="{{tr2tc1_name}}"
+                            icon="{{tr2tc1_icon}}"
+                            material="{{tr2tc1_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr2tc2_id}}"
+                            name="{{tr2tc2_name}}"
+                            icon="{{tr2tc2_icon}}"
+                            material="{{tr2tc2_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr2tc3_id}}"
+                            name="{{tr2tc3_name}}"
+                            icon="{{tr2tc3_icon}}"
+                            material="{{tr2tc3_material}}"
+                    ></mc-item-with-border>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr3tc1_id}}"
+                            name="{{tr3tc1_name}}"
+                            icon="{{tr3tc1_icon}}"
+                            material="{{tr3tc1_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr3tc2_id}}"
+                            name="{{tr3tc2_name}}"
+                            icon="{{tr3tc2_icon}}"
+                            material="{{tr3tc2_material}}"
+                    ></mc-item-with-border>
+                </div>
+                <div class="column">
+                    <mc-item-with-border
+                            _id="{{tr3tc3_id}}"
+                            name="{{tr3tc3_name}}"
+                            icon="{{tr3tc3_icon}}"
+                            material="{{tr3tc3_material}}"
+                    ></mc-item-with-border>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    var modal = require("@weex-module/modal");
+    module.exports = {
+        data: {
+            _id: null,
+            name: null,
+            icon: null,
+            outputNumber: null,
+            isRequiredFurnace: null,
+            tr1tc1_id: null,
+            tr1tc1_name: null,
+            tr1tc1_icon: null,
+            tr1tc1_material: null,
+            tr1tc2_id: null,
+            tr1tc2_name: null,
+            tr1tc2_icon: null,
+            tr1tc2_material: null,
+            tr1tc3_id: null,
+            tr1tc3_name: null,
+            tr1tc3_icon: null,
+            tr1tc3_material: null,
+            tr2tc1_id: null,
+            tr2tc1_name: null,
+            tr2tc1_icon: null,
+            tr2tc1_material: null,
+            tr2tc2_id: null,
+            tr2tc2_name: null,
+            tr2tc2_icon: null,
+            tr2tc2_material: null,
+            tr2tc3_id: null,
+            tr2tc3_name: null,
+            tr2tc3_icon: null,
+            tr2tc3_material: null,
+            tr3tc1_id: null,
+            tr3tc1_name: null,
+            tr3tc1_icon: null,
+            tr3tc1_material: null,
+            tr3tc2_id: null,
+            tr3tc2_name: null,
+            tr3tc2_icon: null,
+            tr3tc2_material: null,
+            tr3tc3_id: null,
+            tr3tc3_name: null,
+            tr3tc3_icon: null,
+            tr3tc3_material: null
+        },
+        created: function() {
+
+        },
+        ready: function() {
+
+        }
+    }
+</script>
+
+<style>
+    .row {
+        flex-direction: row;
+    }
+</style>
