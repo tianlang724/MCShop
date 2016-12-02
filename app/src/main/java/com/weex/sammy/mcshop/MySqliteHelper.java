@@ -82,7 +82,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
     }
 
     public List<MCItem> getAllEntriesFromTableItems() {
-        String[] projection = {"id", "name", "icon"};
+        String[] projection = {"id", "name", "icon", "material"};
         Cursor c = mDatabase.query("items", projection, null, null, null, null, null);
         int numberOfItems = c.getCount();
         c.moveToFirst();
@@ -92,6 +92,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
             item.name = c.getString(c.getColumnIndexOrThrow("name"));
             item.icon = c.getString(c.getColumnIndexOrThrow("icon"));
             item.id = c.getString(c.getColumnIndexOrThrow("id"));
+            item.material = c.getString(c.getColumnIndexOrThrow("material"));
             itemList.add(item);
             c.moveToNext();
         }
@@ -111,6 +112,7 @@ public class MySqliteHelper extends SQLiteOpenHelper {
         item.name = c.getString(c.getColumnIndexOrThrow("name"));
         item.icon = c.getString(c.getColumnIndexOrThrow("icon"));
         item.id = c.getString(c.getColumnIndexOrThrow("id"));
+        item.material = c.getString(c.getColumnIndexOrThrow("material"));
         return item;
     }
 

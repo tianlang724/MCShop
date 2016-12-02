@@ -1,66 +1,67 @@
 <template>
-  <div class="bundle">
-    <div class="item" id="{{_id}}" onclick="itemClick" onlongpress="itemLongpress">
-      <mc-item icon="{{icon}}" name="{{name}}" _id="{{_id}}" class="pic"></mc-item>
+    <div class="bundle">
+        <div class="item" id="{{_id}}" onclick="itemClick" onlongpress="itemLongpress">
+            <mc-item icon="{{icon}}" name="{{name}}" _id="{{_id}}" material="{{material}}" class="pic"></mc-item>
+        </div>
     </div>
-  </div>
 </template>
 
 <style>
-.pic {
-  width: 150px;
-  height: 150px;
-  background-color: #FFFFFF;
-}
+    .pic {
+        width: 150px;
+        height: 150px;
+        background-color: #FFFFFF;
+    }
 
-.item {
-  justify-content:center;
-  align-items:center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
-  width: 150px;
-  height: 150px;
-  background-color: #8F4F03;
-  flex: 1;
-}
+    .item {
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+        width: 150px;
+        height: 150px;
+        background-color: #8F4F03;
+        flex: 1;
+    }
 
-.number {
-  font-size: 40px;
-  flex: 1;
-}
+    .number {
+        font-size: 40px;
+        flex: 1;
+    }
 
-.bundle {
-  justify-content:center;
-  align-items:center;
-  flex-direction: row;
-  width: 200px;
-  height: 200px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #000000;
-  background-color: #8F4F03;
-}
+    .bundle {
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        width: 200px;
+        height: 200px;
+        border-width: 2px;
+        border-style: solid;
+        border-color: #000000;
+        background-color: #8F4F03;
+    }
 
 </style>
 
 <script>
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  var modal = require('@weex-module/modal');
-  module.exports = {
-    data: {
-      name: null,
-      _id: null,
-      icon: null
-    },
-    created: function() {
-    },
-    methods: {
-      itemLongpress:function () {
-        var name = this.name;
-        modal.toast({'message':name,'duration':'0'});
-      }
+    var sqliteModules = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    module.exports = {
+        data: {
+            name: null,
+            _id: null,
+            icon: null,
+            material: null
+        },
+        created: function () {
+        },
+        methods: {
+            itemLongpress: function () {
+                var name = this.name;
+                modal.toast({'message': name, 'duration': '0'});
+            }
+        }
     }
-  }
 </script>

@@ -1,108 +1,106 @@
 <template>
-  <container class="wrapper">
-    <div class="upper">
-      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
-      <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
-    </div>
-    <scroller class="lower" id="lower">
-       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
-    </scroller>
-  </container>
+    <container class="wrapper">
+        <div class="upper">
+            <text class='but' onclick="shoppingListClick">{{itemNumInSp}}</text>
+            <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
+        </div>
+        <scroller class="lower" id="lower">
+            <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
+        </scroller>
+    </container>
 </template>
 
 <style>
-.searchBar {
-  border-left-width: 2px;
-  border-right-width: 2px; 
-  border-left-style: solid;
-  border-right-style: solid;   
-  border-color:#000000 ;
-  flex: 3;
-  font-size: 35;
-  text-align: center;
-}
+    .searchBar {
+        border-left-width: 2px;
+        border-right-width: 2px;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-color: #000000;
+        flex: 3;
+        font-size: 35px;
+        text-align: center;
+    }
 
-.upper {
-  flex-direction: row;
-  flex: 1;
-  align-items:center;
-}
+    .upper {
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+    }
 
-.but {
-  flex: 1;
-  text-align: center;
-  font-size: 35;
-}
-.lower {
-  flex: 10;
-}
+    .but {
+        flex: 1;
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .lower {
+        flex: 10;
+    }
 </style>
 <script>
-  var navigator = require('@weex-module/navigator');
-  var modal = require('@weex-module/modal');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  require('../components/mc-item-one-line.we');
-  module.exports = {
-    data: {
-      added_item: 0,
-      searchBarInputTxt:'input item name or id',
-      row: [
-      ],
-    },
-    methods: {
-      searchBarClick: function(e) {
-        var params = {
-          'animated' : 'true'
-        };
-        navigator.pop(params, function(e) {
-        });
-      }
-    },
-    ready: function() {
-      var self=this;
-      var url = this.$getConfig().bundleUrl;
-      var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)')
-      var match = url.match(reg);
-      this.added_item = parseInt(match[1]);
-      reg= new RegExp('[?|&]' + "searchtxt" + '=([^&]+)')
-      match = url.match(reg);
-      this.searchBarInputTxt=match[1];
-      //var txt= this.searchBarInputTxt;
-      //modal.toast({'message': txt, 'duration': 1});  
-      sqliteModules.getItemFromIdOrName(self.searchBarInputTxt,
-        function (list) { 
-          for(var i = 0; i < list.length;) {
-            var column = new Object();
-            column.data = new Array();
-            for(var j = 0; j < 4; j++) {
-              var item = new Object();
-              item.id = list[i].id;
-              item.name = list[i].name;
-              item.icon = list[i].icon;
-              column.data.push(item);
-              i++;
-              if (i >= list.length) {
-                self.row.push(column);
-                break;
-              }
-              if (j == 3) {
-                self.row.push(column);
-              }
+    var navigator = require('@weex-module/navigator');
+    var modal = require('@weex-module/modal');
+    var sqliteModule = require('@weex-module/sqlitemodule');
+    require('../components/mc-item-one-line.we');
+    module.exports = {
+        data: {
+            itemNumInSp: 0,
+            searchBarInputTxt: 'input item name or id',
+            row: []
+        },
+        methods: {
+            searchBarClick: function (e) {
+                var params = {
+                    'animated': 'true'
+                };
+                navigator.pop(params, function (e) {
+                });
+            },
+            shoppingListClick: function(e) {
+
             }
-          }
-        });
-        
-
-
-    },
-    created: function() {
-      var self = this;
-      this.$on("additem2shoppinglist", function(e) {
-        this.added_item++;
-        modal.toast({'message': "item added", 'duration': 1});
-        storage.setItem("added_item", this.added_item, function(e) {
-        });
-    });
-  }
-  }
+        },
+        ready: function () {
+            var self = this;
+            var url = this.$getConfig().bundleUrl;
+            var reg = new RegExp('[?|&]' + "nitem" + '=([^&]+)');
+            var match = url.match(reg);
+            this.added_item = parseInt(match[1]);
+            reg = new RegExp('[?|&]' + "searchtxt" + '=([^&]+)');
+            match = url.match(reg);
+            this.searchBarInputTxt = match[1];
+            //var txt= this.searchBarInputTxt;
+            //modal.toast({'message': txt, 'duration': 1});
+            sqliteModule.getItemFromIdOrName(self.searchBarInputTxt,
+                    function (list) {
+                        for (var i = 0; i < list.length;) {
+                            var column = {};
+                            column.data = [];
+                            for (var j = 0; j < 4; j++) {
+                                var item = {};
+                                item.id = list[i].id;
+                                item.name = list[i].name;
+                                item.icon = list[i].icon;
+                                item.material = list[i].material;
+                                column.data.push(item);
+                                i++;
+                                if (i >= list.length) {
+                                    self.row.push(column);
+                                    break;
+                                }
+                                if (j == 3) {
+                                    self.row.push(column);
+                                }
+                            }
+                        }
+                    });
+        },
+        created: function () {
+            var self = this;
+            sqliteModule.showItemNumberInShoppingList(function (res) {
+                self.itemNumInSp = res;
+            });
+        }
+    }
 </script>

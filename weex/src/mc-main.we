@@ -1,126 +1,125 @@
 <template>
-  <div class="wrapper">  
-    <div class="upper">
-      <text class='but' onclick="onshoppinglistclick">{{itemNumInSp}}</text>
-      <input 
-        class="searchBar" 
-        id="searchBar" 
-        type="text"
-        autofocus="true"
-        placeholder="input item name or id"
-        value={{searchbarInputTxt}}
-        oninput="searchBarInput"
-      >
-      </input>
-      <text class='but' onclick="searchButClick">search</text>
+    <div class="wrapper">
+        <div class="upper">
+            <text class='but' onclick="shoppingListClick">{{itemNumInSp}}</text>
+            <input
+                    class="searchBar"
+                    id="searchBar"
+                    type="text"
+                    autofocus="true"
+                    placeholder="input item name or id"
+                    value={{searchbarInputTxt}}
+                    oninput="searchBarInput"
+            >
+            </input>
+            <text class='but' onclick="searchButClick">search</text>
+        </div>
+        <scroller class="lower" id="lower">
+            <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
+        </scroller>
     </div>
-    <scroller class="lower" id="lower">
-       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
-    </scroller>
-  </div>
 </template>
 
 <style>
-.searchBar {
-  border-left-width: 2px;
-  border-right-width: 2px; 
-  border-left-style: solid;
-  border-right-style: solid;   
-  border-color:#000000 ;
-  flex: 3;
-}
+    .searchBar {
+        border-left-width: 2px;
+        border-right-width: 2px;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-color: #000000;
+        flex: 3;
+    }
 
-.upper {
-  flex-direction: row;
-  flex: 1;
-  align-items:center;
-}
+    .upper {
+        flex-direction: row;
+        flex: 1;
+        align-items: center;
+    }
 
-.but {
-  flex: 1;
-  text-align: center;
-  font-size: 35;
-}
+    .but {
+        flex: 1;
+        text-align: center;
+        font-size: 35px;
+    }
 
-.lower {
-  flex: 12;
-}
+    .lower {
+        flex: 12;
+    }
 
-.wrapper{
+    .wrapper {
 
-}
+    }
 </style>
 
 <script>
-  require('./components/mc-item-one-line.we');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  var navigator = require('@weex-module/navigator');
-  var modal = require('@weex-module/modal');
-  module.exports = {
-    data: {
-      row: [
-      ],
-      itemNumInSp: 0,
-      searchbarInputTxt:''
-    },
-    created: function() {
-      var self = this;
-      sqliteModules.getAllEntriesFromTableItems(
-        function(list) {
-          for(var i = 0; i < list.length;) {
-            var column = new Object();
-            column.data = new Array();
-            for(var j = 0; j < 4; j++) {
-              var item = new Object();
-              item.id = list[i].id;
-              item.name = list[i].name;
-              item.icon = list[i].icon;
-              column.data.push(item);
-              i++;
-              if (i >= list.length) {
-                self.row.push(column);
-                break;
-              }
-              if (j == 3) {
-                self.row.push(column);
-              }
-            }
-          }
-        }
-      )
-      this.$on("additem2shoppinglist", function(e) {
-        sqliteModules.showItemNumberInShoppingList(function(res) {
-          self.itemNumInSp = res;
-        });
-      });
-    },
-    methods: {
-      onshoppinglistclick: function(e) {
-        var params = {
-          'url': "file://assets/weex/pages/mc-splist.js",
-          'animated': 'true'
-        };
-        navigator.push(params, function(e) {
-        });
-      },
-      searchBarInput:function (e) {
-        this.searchbarInputTxt = e.value;
-      },
-      searchButClick:function(e){
-        var txt=this.searchbarInputTxt;
-        if(txt==='')
-        {
-           modal.toast({'message': 'please input item name or id', 'duration': 1});
-           return ;
-        }
-        var params = {
-        'url': "file://assets/weex/pages/mc-search-page.js?nitem=" + this.added_item+"&searchtxt="+txt,
-        'animated': 'true'
-        };
-        navigator.push(params, function(e) {
-        });
+    require('./components/mc-item-one-line.we');
+    var sqliteModule = require('@weex-module/sqlitemodule');
+    var navigator = require('@weex-module/navigator');
+    var modal = require('@weex-module/modal');
+    module.exports = {
+        data: {
+            row: [],
+            itemNumInSp: 0,
+            searchbarInputTxt: ''
+        },
+        created: function () {
+            var self = this;
+            sqliteModule.getAllEntriesFromTableItems(
+                    function (list) {
+                        for (var i = 0; i < list.length;) {
+                            var column = new Object();
+                            column.data = new Array();
+                            for (var j = 0; j < 4; j++) {
+                                var item = new Object();
+                                item.id = list[i].id;
+                                item.name = list[i].name;
+                                item.icon = list[i].icon;
+                                item.material = list[i].material;
+                                column.data.push(item);
+                                i++;
+                                if (i >= list.length) {
+                                    self.row.push(column);
+                                    break;
+                                }
+                                if (j == 3) {
+                                    self.row.push(column);
+                                }
+                            }
+                        }
+                    }
+            )
+            this.$on("additem2shoppinglist", function (e) {
+                sqliteModule.showItemNumberInShoppingList(function (res) {
+                    self.itemNumInSp = res;
+                });
+            });
+        },
+        methods: {
+            shoppingListClick: function (e) {
+                var params = {
+                    'url': "file://assets/weex/pages/mc-splist.js",
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                });
+            },
+            searchBarInput: function (e) {
+                this.searchbarInputTxt = e.value;
+            },
+            searchButClick: function (e) {
+                var txt = this.searchbarInputTxt;
+                if (txt === '') {
+                    modal.toast({'message': 'please input item name or id', 'duration': 1});
+                    return;
+                }
+                var params = {
+                    'url': "file://assets/weex/pages/mc-search-page.js?nitem=" + this.added_item + "&searchtxt=" + txt,
+                    'animated': 'true'
+                };
+                navigator.push(params, function (e) {
+                });
 
-      }
+            }
+        }
     }
-  }
 </script>

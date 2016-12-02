@@ -1,26 +1,26 @@
 <template>
-  <container class="row">
-    <mc-formula-column  
-      repeat="{{row}}" 
-      _id="{{id}}"
-      name="{{name}}"
-      icon="{{icon}}"
-    >
-    </mc-formula-column>
-  </container>
+    <container class="row">
+        <mc-formula-column
+                repeat="{{row}}"
+                _id="{{id}}"
+                name="{{name}}"
+                icon="{{icon}}"
+                material="{{material}}"
+        >
+        </mc-formula-column>
+    </container>
 </template>
 
 <style>
-.row {
-  flex-direction: row;
-}
+    .row {
+        flex-direction: row;
+    }
 </style>
 <script>
-  module.exports = {
-    data: {
-      row: []
-    },
-    methods: {
+    module.exports = {
+        data: {
+            row: []
+        },
+        methods: {}
     }
-  }
 </script>

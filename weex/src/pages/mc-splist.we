@@ -1,69 +1,94 @@
 <template>
-  <div class="wrapper">
-    <text class="title">Shopping List</text>
-    <scroller class="shopCar" id="shopCar">
-      <mc-sp-one-line row="{{row}}"></mc-sp-one-line>
-    </scroller>
-    <text class="functionBar" onclick="clickFunctionBar">Function Bar</text>
-  </div>
+    <div class="wrapper">
+        <div class="upper">
+            <text class='shoppingListNum'>{{itemNumInSp}}</text>
+            <text class="shoppingListPageTitle">Shopping list</text>
+        </div>
+        <scroller class="shopCar" id="shopCar">
+            <mc-sp-one-line row="{{row}}"></mc-sp-one-line>
+        </scroller>
+        <text class="functionBar" onclick="clickFunctionBar">Function Bar</text>
+    </div>
 </template>
 
 <style>
-.wrapper {
-  
-}
+    .wrapper {
 
-.title {
-  font-size: 50px;
-  flex: 1;
-}
+    }
 
-.shopCar {
-  flex: 10;
-}
+    .shopCar {
+        flex: 15;
+    }
 
-.functionBar {
-  font-size: 50px;
-  flex: 1;
-}
+    .functionBar {
+        font-size: 50px;
+        flex: 1;
+    }
 
+    .shoppingListNum {
+        border-right-width: 2px;
+        border-right-style: solid;
+        border-color: #000000;
+        flex: 1;
+        font-size: 35px;
+        text-align: center;
+    }
+
+    .shoppingListPageTitle {
+        flex: 3;
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .upper {
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+    }
 </style>
 
 <script>
-  require('../components/mc-sp-one-line.we');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  var modal = require('@weex-module/modal');
-  var navigator = require('@weex-module/navigator');
-  module.exports = {
-    data:{
-      added_item: 0,
-      row: []
-    },
-    created: function() {
-      var self = this;
-      sqliteModules.getAllItemFromShoppingList(function(list) {
-        if(list == "null") {
-          modal.toast({"message": "list is  empty", "duration": 1});
-          return;
+    require('../components/mc-sp-one-line.we');
+    var sqliteModule = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    var navigator = require('@weex-module/navigator');
+    module.exports = {
+        data: {
+            itemNumInSp: 0,
+            row: []
+        },
+        created: function () {
+            var self = this;
+            sqliteModule.getAllItemFromShoppingList(function (list) {
+                if (list == "null") {
+                    modal.toast({"message": "list is  empty", "duration": 1});
+                    return;
+                }
+                self.itemNumInSp = list.length;
+                for (var i = 0; i < list.length; i++) {
+                    var item = new Object();
+                    item.id = list[i].id;
+                    item.name = list[i].name;
+                    item.icon = list[i].icon;
+                    item.material = list[i].material;
+                    self.row.push(item);
+                }
+            });
+            this.$on("additem2shoppinglist", function (e) {
+                sqliteModule.showItemNumberInShoppingList(function (res) {
+                    self.itemNumInSp = res;
+                });
+            });
+        },
+        methods: {
+            clickFunctionBar: function (e) {
+                var params = {
+                    "url": "file://assets/weex/pages/mc-calculate.js",
+                    "animated": true
+                };
+                navigator.push(params, function (e) {
+                });
+            }
         }
-        for(var i = 0; i < list.length; i++) {
-            var item = new Object();
-            item.id = list[i].id;
-            item.name = list[i].name;
-            item.icon = list[i].icon;
-            self.row.push(item);
-          }
-      });
-    },
-    methods: {
-      clickFunctionBar: function(e) {
-        var params = {
-          "url": "file://assets/weex/pages/mc-calculate.js",
-          "animated": true
-        };
-        navigator.push(params, function(e) {
-        });
-      }
     }
-  }
 </script>

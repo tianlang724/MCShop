@@ -1,82 +1,99 @@
 <template>
-  <div class="bundle">
-    <div class="item" id="{{id}}">
-      <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" class="pic"></mc-item>
+    <div class="bundle">
+        <div class="item" id="{{_id}}">
+            <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" material="{{material}}" class="pic"></mc-item>
+        </div>
+        <div class="name">
+            <text class="name">{{name}}</text>
+        </div>
+        <div class="tools">
+            <text class="des" onclick="clickDesBut">-</text>
+            <text class="number">{{itemNumInSp}}</text>
+            <text class="inc" onclick="clickIncBut">+</text>
+        </div>
     </div>
-    <div class="name">
-      <text>{{name}}</text>
-    </div>
-    <div class="tools">
-      <text class="des">-</text>
-      <text class="number">{{itemNumInSp}}</text>
-      <text class="inc">+</text>
-    </div>
-  </div>
 </template>
 
 <style>
-.pic {
-  width: 150px;
-  height: 150px;
-  flex: 1;
-}
+    .pic {
+        width: 150px;
+        height: 150px;
+        flex: 1;
+    }
 
-.name {
-  font-size: 30px;
-  text-align: center;
-  flex: 1;
-}
+    .name {
+        font-size: 30px;
+        text-align: center;
+        flex: 2;
+    }
 
-.item {
-  flex: 1;
-}
+    .item {
+        flex: 1;
+    }
 
-.number {
-  font-size: 40px;
-  flex: 1;
-}
+    .number {
+        font-size: 40px;
+        flex: 1;
+    }
 
-.tools {
-  flex: 1;
-}
+    .tools {
+        border-left-style: solid;
+        border-left-width: 2px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        padding-left: 20px;
+        flex: 1;
+    }
 
-.bundle {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
-}
+    .bundle {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
 
-.des {
-  font-size: 40px;
-  flex: 1;
-}
+    .des {
+        font-size: 40px;
+        flex: 1;
+    }
 
-.inc {
-  font-size: 40px;
-  flex: 1;
-}
+    .inc {
+        font-size: 40px;
+        flex: 1;
+    }
 </style>
 
 <script>
-  require('./mc-item.we');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  var modal = require('@weex-module/modal');
-  var navigator = require('@weex-module/navigator');
-  module.exports = {
-    data: {
-      name: null,
-      _id: null,
-      icon: null,
-      itemNumInSp: null
-    },
-    created: function() {
-      var self = this;
-      sqliteModules.showItemNumber(this._id, function(num) {
-        self.itemNumInSp = num;
-      });
-    },
-    methods: {
+    require('./mc-item.we');
+    var sqliteModule = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    var navigator = require('@weex-module/navigator');
+    module.exports = {
+        data: {
+            name: null,
+            _id: null,
+            icon: null,
+            material: null,
+            itemNumInSp: null
+        },
+        created: function () {
+            var self = this;
+            sqliteModule.showItemNumber(this._id, function (num) {
+                self.itemNumInSp = num;
+            });
+        },
+        methods: {
+            clickDesBut: function (e) {
+                if (this.itemNumInSp == 0) return;
+                this.itemNumInSp--;
+                sqliteModule.updateItemNumber(this._id, this.itemNumInSp, function (e) {
+                });
+            },
+            clickIncBut: function (e) {
+                this.itemNumInSp++;
+                sqliteModule.updateItemNumber(this._id, this.itemNumInSp, function (e) {
+                });
+            }
+        }
     }
-  }
 </script>

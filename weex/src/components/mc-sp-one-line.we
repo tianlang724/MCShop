@@ -1,32 +1,31 @@
 <template>
-  <div class="row">
-    <div class="bundle">
-      <mc-item-in-sp
-        repeat="{{row}}" 
-        _id="{{id}}"
-        name="{{name}}"
-        icon="{{icon}}"
-      >
-      </mc-item-in-sp>
+    <div class="row">
+        <div class="bundle">
+            <mc-item-in-sp
+                    repeat="{{row}}"
+                    _id="{{id}}"
+                    name="{{name}}"
+                    icon="{{icon}}"
+                    material="{{material}}"
+            >
+            </mc-item-in-sp>
+        </div>
     </div>
-  </div>
 </template>
 
 <style>
-.row {
-  flex-direction: row;
-}
+    .row {
+    }
 
-.bundle {
-
-}
+    .bundle {
+        margin-top: 20px;
+    }
 </style>
 <script>
-  module.exports = {
-    data: {
-      row: []
-    },
-    methods: {
+    module.exports = {
+        data: {
+            row: []
+        },
+        methods: {}
     }
-  }
 </script>
