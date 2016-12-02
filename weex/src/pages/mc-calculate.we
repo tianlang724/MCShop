@@ -1,11 +1,9 @@
 <template>
-<<<<<<< HEAD
   <container class="wrapper">
     <div class="upper">
-      <text class="title" onclick="resultClick">result:</text>
+      <text class="title" onclick="resultClick">{{result}}</text>
     </div>
     <scroller class="lower" id="lower">
-       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
     </scroller>
   </container>
 </template>
@@ -18,13 +16,19 @@
   var mapjs=require('../lib/map');
   var modal = require('@weex-module/modal');
   var sqliteModules = require('@weex-module/sqlitemodule'); 
+  function test () {
+     sqliteModules.getAllItemFromShoppingList(function(){
+        modal.toast({'message':'test','duration':'0'});
+     });
+}
   module.exports = {
     data: {
     	cur:{
     		id:null,
     		name:null,
     		icon:null,
-    	}
+    	},
+    	result:'result'
     },
     methods:{
     	resultClick:function () {
@@ -33,17 +37,24 @@
     		// var map=new mapjs.Map();
     		// map.put("a","A");
     		// var txt=map.get('a');
-    		// modal.toast({'message':txt,'duration':'0'});
-    		sqliteModules.getAllItemFromShoppingList(function(list) {
-    			for(var i=0;i<list.length;i++){
-    			}
-    		});
-    		
+    		// modal.toast({'message':txt,'duration':'0'});	
+    		modal.toast({'message':'click','duration':'0'});
     	}
+    },
+    ready:function(e){
+    	var needMap=new mapjs.Map();
+    	var wasteMap=new mapjs.Map();
+    	sqliteModules.getAllItemFromShoppingList(function(list) {
+    		for(var i=0;i<list.length;i++){
+    			var id=list[i].id;
+    			sqliteModules.getItemFormulaFromId(id,function (formula) {
+    				
 
+    			})
+    		}
+    	});
     }
 }
+
 </script>
-=======
-</template>
->>>>>>> f69eb4790f5c13d671e35dbcbedc8343fcc1590b
+
