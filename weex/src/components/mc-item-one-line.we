@@ -1,28 +1,28 @@
 <template>
-  <container class="row">
-    <mc-item-with-name  
-      repeat="{{row}}" 
-      _id="{{id}}"
-      name="{{name}}"
-      icon="{{icon}}"
-    >
-    </mc-item-with-name>
-  </container>
+    <container class="row">
+        <mc-item-with-name
+                repeat="{{row}}"
+                _id="{{id}}"
+                name="{{name}}"
+                icon="{{icon}}"
+                material="{{material}}"
+        >
+        </mc-item-with-name>
+    </container>
 </template>
 
 <style>
-.row {
-  flex-direction: row;
-  justify-content: space-between;
-}
+    .row {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 </style>
 <script>
-  require("./mc-item-with-name.we");
-  module.exports = {
-    data: {
-      row: []
-    },
-    methods: {
+    require("./mc-item-with-name.we");
+    module.exports = {
+        data: {
+            row: []
+        },
+        methods: {}
     }
-  }
 </script>

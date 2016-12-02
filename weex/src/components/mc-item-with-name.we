@@ -1,64 +1,65 @@
 <template>
-  <div class="bundle" onclick="click">
-    <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}"></mc-item>
-    <text class="name">{{name}}</text>
-  </div>
+    <div class="bundle" onclick="click">
+        <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" material="{{material}}"></mc-item>
+        <text class="name">{{name}}</text>
+    </div>
 </template>
 
 <style>
-.pic {
-  width: 150px;
-  height: 150px;
-}
+    .pic {
+        width: 150px;
+        height: 150px;
+    }
 
-.name {
-  font-size: 20px;
-  text-align: center;
-  flex: 1;
-}
+    .name {
+        font-size: 20px;
+        text-align: center;
+        flex: 1;
+    }
 
-.bundle {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
-  width: 150px;
-  height: 200px;
-}
+    .bundle {
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        width: 150px;
+        height: 200px;
+    }
 </style>
 
 <script>
-  require('./mc-item.we');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  var modal = require('@weex-module/modal');
-  module.exports = {
-    data: { 
-      name: null,
-      _id: null,
-      icon: null
-    },
-    created: function() {
-    },
-    methods: {
-      click: function(e) {
-        var self = this;
-        modal.confirm({
-          message: "add " + this.name + " to shopping list?",
-          okTitle: "yes",
-          cancelTitle: "no"
-        }, function(res) {
-          modal.toast({'message': res, 'duration': 1});
-          if(res == "yes") {
-            var item = new Object();
-            item.name = self.name;
-            item.id = self._id;
-            item.icon = self.icon;
-            sqliteModules.insertItemToShoppingList(item, function(res) {
-            });
-            self.$dispatch('additem2shoppinglist', {id: self._id});
-          }
-        });
-      }
+    var sqliteModules = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    module.exports = {
+        data: {
+            name: null,
+            _id: null,
+            icon: null,
+            material: null
+        },
+        created: function () {
+        },
+        methods: {
+            click: function (e) {
+                var self = this;
+                modal.confirm({
+                    message: "add " + this.name + " to shopping list?",
+                    okTitle: "yes",
+                    cancelTitle: "no"
+                }, function (res) {
+                    modal.toast({'message': res, 'duration': 1});
+                    if (res == "yes") {
+                        var item = new Object();
+                        item.name = self.name;
+                        item.id = self._id;
+                        item.icon = self.icon;
+                        item.material = self.material;
+                        sqliteModules.insertItemToShoppingList(item, function (res) {
+                        });
+                        self.$dispatch('additem2shoppinglist', {id: self._id});
+                    }
+                });
+            }
+        }
     }
-  }
 </script>
