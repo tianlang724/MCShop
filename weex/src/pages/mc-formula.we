@@ -1,130 +1,134 @@
 <template>
-  <container class="wrapper">
-    <div class="upper">
-    <text class="title">Detail Information:</text>
-    </div>
-    <div class="details">
-    <img class="pic" src={{url}}></img>
-    <text class="text">id: {{id}}</text>
-    <text class="text">name: {{name}}</text>
-    </div> 
-    <div class="formula">
-     <mc-formula-row repeat="{{row}}" row="{{data}}"></mc-formula-row>
-     <div class="furnace" if="{{isRequireFurnace}}">
-     <img class="pic" src={{urlBlock}}></img>
-     <img class="pic" src={{urlFurnace}}></img>
-     <img class="pic" src={{}} onclick="fuelClick"></img>
-     </div>>
-    <div>
-  </container>
+    <container class="wrapper">
+        <div class="upper">
+            <text class="title">Detail Information:</text>
+        </div>
+        <div class="details">
+            <image class="pic" src={{url}}></image>
+            <text class="text">id: {{id}}</text>
+            <text class="text">name: {{name}}</text>
+        </div>
+        <div class="formula">
+            <mc-formula-row repeat="{{row}}" row="{{data}}"></mc-formula-row>
+            <div class="furnace" if="{{isRequireFurnace}}">
+                <image class="pic" src={{urlBlock}}></image>
+                <image class="pic" src={{urlFurnace}}></image>
+                <image class="pic" src={{}} onclick="fuelClick"></image>
+            </div>
+        </div>
+    </container>
 </template>
 
 <style>
-.text {
-  font-size: 30px;
-}
-.title{
-   font-size: 40px;
-   justify-content:flex-start;
-}
-.upper {
-  flat-direction: row;
-}
-.formula {
-  justify-content:center;
-  align-items:center;
-}
-.details {
-  justify-content:center;
-  align-items:center;
-}
-.pic {
-  width: 200px;
-  height: 200px;
-  border-width: 2px;
-}
-.furnace {
-  flat-direction: row;
-  justify-content:center;
-}
+    .text {
+        font-size: 30px;
+    }
+
+    .title {
+        font-size: 40px;
+        justify-content: flex-start;
+    }
+
+    .upper {
+        flat-direction: row;
+    }
+
+    .formula {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pic {
+        width: 200px;
+        height: 200px;
+        border-width: 2px;
+    }
+
+    .furnace {
+        flat-direction: row;
+        justify-content: center;
+    }
 </style>
 <script>
-  var navigator = require('@weex-module/navigator');
-  var modal = require('@weex-module/modal');
-  require('../components/mc-formula-row.we');
-  var sqliteModules = require('@weex-module/sqlitemodule');
-  module.exports = {
-    data: {
-      id: '0',
-      name: 'Air',
-      url: null,
-      row: [
-      ],
-      outputNum:null,
-      isRequireFurnace:false,
-      urlFurnace:'http://ww1.sinaimg.cn/small/bf84af6djw1fab9nlhoh5j20aj06m0te.jpg',
-      urlBlock:''
-    },
-    methods: {
-      onsearchfocus: function(e) {
-        var params = {
-          'animated' : 'true'
-        };
-        navigator.pop(params, function(e) {
-        });
-      },
-      fuelClick:function () 
-      {
-        modal.toast({'message':'please put some fuel', 'duration': 1});
-        /* body... */
-      }
-    },
-    ready: function() {
-      var url = this.$getConfig().bundleUrl;
-      var reg = new RegExp('[?|&]' + "id" + '=([^&]+)')
-      var match = url.match(reg);
-      //modal.toast({'message': match[1], 'duration': 1});
-      this.id = match[1];       
-      var self = this;
-      sqliteModules.getItemFormulaFromId("256",
-        function (formula) {
-          self.outputNum=formula.outputNum;
-          self.isRequireFurnace=formula.isRequireFurnace;
-          //self.isRequireFurnace="1";
-          if(self.isRequireFurnace==="1")
-          {
-              self.src=list[0].icon;
-              self.isRequireFurnace=true;
-              return;
-          }
-          var list=formula.items;
-           for(var i = 0; i < list.length;) {
-            var column = new Object();
-            column.data = new Array();
-            for(var j = 0; j <3; j++) {
-              var item = new Object();
-              if(list[i]===null){
-                item.id = null;
-                item.name = "empty";
-                item.icon = null;
-              }
-              else{
-                  item.id = list[i].id;
-                  item.name = list[i].name;
-                  item.icon = list[i].icon;
-              }
-              column.data.push(item);
-              i++;
-              if (i >= list.length) {
-                self.row.push(column);
-                break;
-              }
-              if (j == 2) {
-                self.row.push(column);
-              }
+    var navigator = require('@weex-module/navigator');
+    var modal = require('@weex-module/modal');
+    require('../components/mc-formula-row.we');
+    var sqliteModules = require('@weex-module/sqlitemodule');
+    module.exports = {
+        data: {
+            id: '0',
+            name: 'Air',
+            url: null,
+            row: [],
+            outputNum: null,
+            isRequireFurnace: false,
+            urlFurnace: 'http://ww1.sinaimg.cn/small/bf84af6djw1fab9nlhoh5j20aj06m0te.jpg',
+            urlBlock: ''
+        },
+        methods: {
+            onsearchfocus: function (e) {
+                var params = {
+                    'animated': 'true'
+                };
+                navigator.pop(params, function (e) {
+                });
+            },
+            fuelClick: function () {
+                modal.toast({'message': 'please put some fuel', 'duration': 1});
+                /* body... */
             }
-          }
-        });
+        },
+        ready: function () {
+            var url = this.$getConfig().bundleUrl;
+            var reg = new RegExp('[?|&]' + "id" + '=([^&]+)')
+            var match = url.match(reg);
+            //modal.toast({'message': match[1], 'duration': 1});
+            this.id = match[1];
+            var self = this;
+            sqliteModules.getItemFormulaFromId("256",
+                    function (formula) {
+                        self.outputNum = formula.outputNum;
+                        self.isRequireFurnace = formula.isRequireFurnace;
+                        //self.isRequireFurnace="1";
+                        if (self.isRequireFurnace === "1") {
+                            self.src = list[0].icon;
+                            self.isRequireFurnace = true;
+                            return;
+                        }
+                        var list = formula.items;
+                        for (var i = 0; i < list.length;) {
+                            var column = new Object();
+                            column.data = new Array();
+                            for (var j = 0; j < 3; j++) {
+                                var item = new Object();
+                                if (list[i] === null) {
+                                    item.id = null;
+                                    item.name = "empty";
+                                    item.icon = null;
+                                }
+                                else {
+                                    item.id = list[i].id;
+                                    item.name = list[i].name;
+                                    item.icon = list[i].icon;
+                                    item.material = list[i].material;
+                                }
+                                column.data.push(item);
+                                i++;
+                                if (i >= list.length) {
+                                    self.row.push(column);
+                                    break;
+                                }
+                                if (j == 2) {
+                                    self.row.push(column);
+                                }
+                            }
+                        }
+                    });
+        }
     }
-  }
 </script>

@@ -34,7 +34,7 @@ public class MainActivity extends AbsWeexActivity {
         } catch(SQLiteException e) {
             Toast.makeText(mInstance.getContext(), "SQLiteException", Toast.LENGTH_SHORT).show();
         }
-        loadUrl("file://assets/weex/pages/mc-calculate.js");
+        loadUrl("file://assets/weex/mc-main.js");
     }
 
     @Override
