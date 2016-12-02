@@ -4,6 +4,10 @@
       <text class="title" onclick="resultClick">{{result}}</text>
     </div>
     <scroller class="lower" id="lower">
+       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
+    </scroller>
+    <scroller class="lower" id="lower">
+       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
     </scroller>
   </container>
 </template>
@@ -16,43 +20,79 @@
   var mapjs=require('../lib/map');
   var modal = require('@weex-module/modal');
   var sqliteModules = require('@weex-module/sqlitemodule'); 
-  function test () {
-     sqliteModules.getAllItemFromShoppingList(function(){
-        modal.toast({'message':'test','duration':'0'});
-     });
+  function  recursion(needMap,wasteMap,list) {
+  	for(var i=0;i<list.length;i++){
+    	var id=list[i].id;
+    	sqliteModules.getItemFormulaFromId(id,
+    		function(formula){
+    		 	if(formula.isNeedFormula=='true'){
+    		 		if(formula.outputNumber>1){
+    		 			var wastevalue=new Object();
+    					wastevalue.id=formula.item.id;
+    					wastevalue.name=formula.item.id;
+    					wastevalue.icon=formula.item.icon;
+    					wastevalue.num=formula.outputNumber-1;
+    					wasteMap.put(key,wastevalue);
+    		 		}
+    				recursion(needMap,wasteMap,formula.items);
+    			}else{
+    				var key=formula.item.id;
+    				var searchrest=wasteMap.get(key);
+    				if(searchrest!=null){
+    					if(searchrest.num>0){
+    						searchrest.num--;
+    						if(searchrest.num>0){
+    							wasteMap.put(key,searchrest);
+    						}else{
+    							wasteMap.remove(key);
+    						}								
+    						return ;
+    					}
+    				}
+    			  	searchrest=needMap.get(key);
+    				if(searchrest!=null){
+    					searchrest.num++;
+    					needMap.put(key,searchrest);
+    				}else{
+    					var value=new Object();
+    					value.id=formula.item.id;
+    					value.name=formula.item.id;
+    					value.icon=formula.item.icon;
+    					value.num=1;
+    					needMap.put(key,value);
+    				}
+    			}
+    		});
+    	}
 }
   module.exports = {
     data: {
-    	cur:{
-    		id:null,
-    		name:null,
-    		icon:null,
-    	},
     	result:'result'
     },
     methods:{
     	resultClick:function () {
-    		//test code
-    		// modal.toast({'message':'click','duration':'0'});
-    		// var map=new mapjs.Map();
-    		// map.put("a","A");
-    		// var txt=map.get('a');
-    		// modal.toast({'message':txt,'duration':'0'});	
     		modal.toast({'message':'click','duration':'0'});
     	}
     },
-    ready:function(e){
+    create:function(e){
     	var needMap=new mapjs.Map();
     	var wasteMap=new mapjs.Map();
-    	sqliteModules.getAllItemFromShoppingList(function(list) {
-    		for(var i=0;i<list.length;i++){
-    			var id=list[i].id;
-    			sqliteModules.getItemFormulaFromId(id,function (formula) {
-    				
+    	sqliteModules.getAllItemFromShoppingList(
+    		function(list) {
+    			if(list == "null") {
+         		 	modal.toast({"message": "list is  empty", "duration": 1});
+          			return;
+        		}
+    			recursion(needMap,wasteMap,list);
+    		});
+    	if(needMap.isEmpty()){
+    		modal.toast({'message':'nothing need','duration':'0'});
+    	}else{
+    		needMap.each(function(){
+    			
+    		});
+    	}
 
-    			})
-    		}
-    	});
     }
 }
 
