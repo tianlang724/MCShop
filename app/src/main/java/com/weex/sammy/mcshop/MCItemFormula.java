@@ -9,7 +9,8 @@ import java.util.List;
  */
 
 public class MCItemFormula implements IWXObject {
+    public MCItem item;
     public String outputNumber;
     public String isRequiredFurnace;
-    public List<MCItem> items;
+    public List<MCItemForFormula> items;
 }
