@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <container class="wrapper">
     <div class="upper">
       <text class="title" onclick="resultClick">result:</text>
@@ -43,3 +44,6 @@
     }
 }
 </script>
+=======
+</template>
+>>>>>>> f69eb4790f5c13d671e35dbcbedc8343fcc1590b

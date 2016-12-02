@@ -4,7 +4,7 @@
     <scroller class="shopCar" id="shopCar">
       <mc-sp-one-line row="{{row}}"></mc-sp-one-line>
     </scroller>
-    <text class="functionBar">Function Bar</text>
+    <text class="functionBar" onclick="clickFunctionBar">Function Bar</text>
   </div>
 </template>
 
@@ -33,6 +33,7 @@
   require('../components/mc-sp-one-line.we');
   var sqliteModules = require('@weex-module/sqlitemodule');
   var modal = require('@weex-module/modal');
+  var navigator = require('@weex-module/navigator');
   module.exports = {
     data:{
       added_item: 0,
@@ -53,6 +54,16 @@
             self.row.push(item);
           }
       });
+    },
+    methods: {
+      clickFunctionBar: function(e) {
+        var params = {
+          "url": "file://assets/weex/pages/mc-calculate.js",
+          "animated": true
+        };
+        navigator.push(params, function(e) {
+        });
+      }
     }
   }
 </script>
