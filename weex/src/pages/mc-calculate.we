@@ -1,11 +1,2 @@
 <template>
-  <container class="wrapper">
-    <div class="upper">
-      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
-      <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
-    </div>
-    <scroller class="lower" id="lower">
-       <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
-    </scroller>
-  </container>
 </template>
