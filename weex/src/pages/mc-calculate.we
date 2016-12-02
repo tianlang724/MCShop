@@ -1,11 +1,45 @@
 <template>
   <container class="wrapper">
     <div class="upper">
-      <text class='but' onclick="onshoppinglistclick">{{added_item}}</text>
-      <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
+      <text class="title" onclick="resultClick">result:</text>
     </div>
     <scroller class="lower" id="lower">
        <mc-block-row repeat="{{row}}" row="{{data}}"></mc-block-row>
     </scroller>
   </container>
 </template>
+<style>
+.title{
+	font-size: 30px;
+}
+</style>
+<script>
+  var mapjs=require('../lib/map');
+  var modal = require('@weex-module/modal');
+  var sqliteModules = require('@weex-module/sqlitemodule'); 
+  module.exports = {
+    data: {
+    	cur:{
+    		id:null,
+    		name:null,
+    		icon:null,
+    	}
+    },
+    methods:{
+    	resultClick:function () {
+    		//test code
+    		// modal.toast({'message':'click','duration':'0'});
+    		// var map=new mapjs.Map();
+    		// map.put("a","A");
+    		// var txt=map.get('a');
+    		// modal.toast({'message':txt,'duration':'0'});
+    		sqliteModules.getAllItemFromShoppingList(function(list) {
+    			for(var i=0;i<list.length;i++){
+    			}
+    		});
+    		
+    	}
+
+    }
+}
+</script>
