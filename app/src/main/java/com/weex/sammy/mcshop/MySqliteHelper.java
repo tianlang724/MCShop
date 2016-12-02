@@ -125,15 +125,20 @@ public class MySqliteHelper extends SQLiteOpenHelper {
             return null;
         } else {
             c.moveToFirst();
+            MCItem item = getItemFromId(id);
             String formulas = c.getString(c.getColumnIndexOrThrow("formula"));
+            if(formulas.isEmpty()) return null;
             String[] formulaArray = formulas.split("_");
             formula.outputNumber = formulaArray[0];
-            List<MCItem> formulaList = new ArrayList<>();
+            List<MCItemForFormula> formulaList = new ArrayList<>();
             for(int i = 1; i < 10; i++) {
                 if(formulaArray[i] == null) continue;
-                formulaList.add(getItemFromId(formulaArray[i]));
+                MCItemForFormula formulaItem = (MCItemForFormula) getItemFromId(formulaArray[i]);
+                formulaItem.position = i;
+                formulaList.add(formulaItem);
             }
             formula.items = formulaList;
+            formula.item = item;
             formula.isRequiredFurnace = formulaArray[10];
             return formula;
         }
