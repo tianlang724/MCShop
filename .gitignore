@@ -11,3 +11,4 @@
 .externalNativeBuild
 /scrapyproject
 /weex/node_modules
+/weex/.idea/
