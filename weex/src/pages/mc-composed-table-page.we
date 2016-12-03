@@ -3,60 +3,79 @@
         <div class="page_title">
             <text class="title">composed table</text>
         </div>
-        <div class="target">
-            <mc-item-with-border _id="{{_id}}" name="{{name}}" icon="{{icon}}" number="{{outputNumber}}"></mc-item-with-border>
-        </div>
-        <div class="table">
-            <mc-composed-table
-                    _id="{{_id}}"
-                    name="{{name}}"
-                    icon="{{icon}}"
-                    outputNumber="{{outputNumber}}"
-                    isRequiredFurnace="{{isRequiredFurnace}}"
-                    tr1tc1_id="{{tr1tc1_id}}"
-                    tr1tc1_name="{{tr1tc1_name}}"
-                    tr1tc1_icon="{{tr1tc1_icon}}"
-                    tr1tc1_material="{{tr1tc1_material}}"
-                    tr1tc2_id="{{tr1tc2_id}}"
-                    tr1tc2_name="{{tr1tc2_name}}"
-                    tr1tc2_icon="{{tr1tc2_icon}}"
-                    tr1tc2_material="{{tr1tc2_material}}"
-                    tr1tc3_id="{{tr1tc3_id}}"
-                    tr1tc3_name="{{tr1tc3_name}}"
-                    tr1tc3_icon="{{tr1tc3_icon}}"
-                    tr1tc3_material="{{tr1tc3_material}}"
-                    tr2tc1_id="{{tr2tc1_id}}"
-                    tr2tc1_name="{{tr2tc1_name}}"
-                    tr2tc1_icon="{{tr2tc1_icon}}"
-                    tr2tc1_material="{{tr2tc1_material}}"
-                    tr2tc2_id="{{tr2tc2_id}}"
-                    tr2tc2_name="{{tr2tc2_name}}"
-                    tr2tc2_icon="{{tr2tc2_icon}}"
-                    tr2tc2_material="{{tr2tc2_material}}"
-                    tr2tc3_id="{{tr2tc3_id}}"
-                    tr2tc3_name="{{tr2tc3_name}}"
-                    tr2tc3_icon="{{tr2tc3_icon}}"
-                    tr2tc3_material="{{tr2tc3_material}}"
-                    tr3tc1_id="{{tr3tc1_id}}"
-                    tr3tc1_name="{{tr3tc1_name}}"
-                    tr3tc1_icon="{{tr3tc1_icon}}"
-                    tr3tc1_material="{{tr3tc1_material}}"
-                    tr3tc2_id="{{tr3tc2_id}}"
-                    tr3tc2_name="{{tr3tc2_name}}"
-                    tr3tc2_icon="{{tr3tc2_icon}}"
-                    tr3tc2_material="{{tr3tc2_material}}"
-                    tr3tc3_id="{{tr3tc3_id}}"
-                    tr3tc3_name="{{tr3tc3_name}}"
-                    tr3tc3_icon="{{tr3tc3_icon}}"
-                    tr3tc3_material="{{tr3tc3_material}}"
-            >
-            </mc-composed-table>
+        <div class="lower">
+            <div class="target" if="{{isDisplayTable}}">
+                <mc-item-with-border _id="{{_id}}" name="{{name}}" icon="{{icon}}" number="{{outputNumber}}"></mc-item-with-border>
+            </div>
+            <scroller class="craft">
+                <div class="table">
+                    <mc-composed-table
+                            if="{{isDisplayTable}}"
+                            _id="{{_id}}"
+                            name="{{name}}"
+                            icon="{{icon}}"
+                            outputNumber="{{outputNumber}}"
+                            isRequiredFurnace="{{isRequiredFurnace}}"
+                            tr1tc1_id="{{tr1tc1_id}}"
+                            tr1tc1_name="{{tr1tc1_name}}"
+                            tr1tc1_icon="{{tr1tc1_icon}}"
+                            tr1tc1_material="{{tr1tc1_material}}"
+                            tr1tc2_id="{{tr1tc2_id}}"
+                            tr1tc2_name="{{tr1tc2_name}}"
+                            tr1tc2_icon="{{tr1tc2_icon}}"
+                            tr1tc2_material="{{tr1tc2_material}}"
+                            tr1tc3_id="{{tr1tc3_id}}"
+                            tr1tc3_name="{{tr1tc3_name}}"
+                            tr1tc3_icon="{{tr1tc3_icon}}"
+                            tr1tc3_material="{{tr1tc3_material}}"
+                            tr2tc1_id="{{tr2tc1_id}}"
+                            tr2tc1_name="{{tr2tc1_name}}"
+                            tr2tc1_icon="{{tr2tc1_icon}}"
+                            tr2tc1_material="{{tr2tc1_material}}"
+                            tr2tc2_id="{{tr2tc2_id}}"
+                            tr2tc2_name="{{tr2tc2_name}}"
+                            tr2tc2_icon="{{tr2tc2_icon}}"
+                            tr2tc2_material="{{tr2tc2_material}}"
+                            tr2tc3_id="{{tr2tc3_id}}"
+                            tr2tc3_name="{{tr2tc3_name}}"
+                            tr2tc3_icon="{{tr2tc3_icon}}"
+                            tr2tc3_material="{{tr2tc3_material}}"
+                            tr3tc1_id="{{tr3tc1_id}}"
+                            tr3tc1_name="{{tr3tc1_name}}"
+                            tr3tc1_icon="{{tr3tc1_icon}}"
+                            tr3tc1_material="{{tr3tc1_material}}"
+                            tr3tc2_id="{{tr3tc2_id}}"
+                            tr3tc2_name="{{tr3tc2_name}}"
+                            tr3tc2_icon="{{tr3tc2_icon}}"
+                            tr3tc2_material="{{tr3tc2_material}}"
+                            tr3tc3_id="{{tr3tc3_id}}"
+                            tr3tc3_name="{{tr3tc3_name}}"
+                            tr3tc3_icon="{{tr3tc3_icon}}"
+                            tr3tc3_material="{{tr3tc3_material}}"
+                    >
+                    </mc-composed-table>
+                </div>
+                <div class="furnace">
+                    <mc-furnace
+                            if="{{isDisplayFurnace}}"
+                            target_id="{{target_id}}"
+                            target_name="{{target_name}}"
+                            target_icon="{{target_icon}}"
+                            target_material="{{target_material}}"
+                            material_id="{{material_id}}"
+                            material_name="{{material_name}}"
+                            material_icon="{{material_icon}}"
+                            material_material="{{material_material}}"
+                    ></mc-furnace>
+                </div>
+            </scroller>
         </div>
     </div>
 </template>
 
 <script>
     require("../components/mc-composed-table.we");
+    require("../components/mc-furnace.we");
     require("../components/mc-item-with-border.we");
     var sqliteModule = require("@weex-module/sqlitemodule");
     var modal = require("@weex-module/modal");
@@ -102,7 +121,17 @@
             tr3tc3_id: null,
             tr3tc3_name: null,
             tr3tc3_icon: null,
-            tr3tc3_material: null
+            tr3tc3_material: null,
+            target_id: null,
+            target_name: null,
+            target_icon: null,
+            target_material: null,
+            material_id: null,
+            material_name: null,
+            material_icon: null,
+            material_material: null,
+            isDisplayFurnace: false,
+            isDisplayTable: false
         },
         methods: {},
         ready: function () {
@@ -117,6 +146,18 @@
                 self.icon = formula.item.icon;
                 self.outputNumber = formula.outputNumber;
                 self.isRequireFurnace = formula.isRequiredFurnace;
+                if (self.isRequireFurnace == "yes") {
+                    self.isDisplayFurnace = true;
+                    self.target_id = self._id;
+                    self.target_name = self.name;
+                    self.target_icon = self.icon;
+                    self.target_material = self.material;
+                    self.material_id = formula.items[0].id;
+                    self.material_name = formula.items[0].name;
+                    self.material_icon = formula.items[0].icon;
+                    self.material_material = formula.items[0].material;
+                    return;
+                }
                 for (var i = 0; i < formula.items.length; i++) {
                     switch (formula.items[i].position) {
                         case 1:
@@ -125,6 +166,7 @@
                             self.tr1tc1_name = formula.items[i].name;
                             self.tr1tc1_icon = formula.items[i].icon;
                             self.tr1tc1_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         case 2:
@@ -133,6 +175,7 @@
                             self.tr1tc2_name = formula.items[i].name;
                             self.tr1tc2_icon = formula.items[i].icon;
                             self.tr1tc2_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             //modal.toast({"message": self.tr1tc2_name, "duration": 1});
                             break;
                         }
@@ -143,6 +186,7 @@
                             self.tr1tc3_name = formula.items[i].name;
                             self.tr1tc3_icon = formula.items[i].icon;
                             self.tr1tc3_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         case 4:
@@ -151,6 +195,7 @@
                             self.tr2tc1_name = formula.items[i].name;
                             self.tr2tc1_icon = formula.items[i].icon;
                             self.tr2tc1_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         case 5:
@@ -159,8 +204,8 @@
                             self.tr2tc2_name = formula.items[i].name;
                             self.tr2tc2_icon = formula.items[i].icon;
                             self.tr2tc2_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             //modal.toast({"message": self.tr2tc2_name, "duration": 1});
-
                             break;
                         }
                         case 6:
@@ -169,6 +214,7 @@
                             self.tr2tc3_name = formula.items[i].name;
                             self.tr2tc3_icon = formula.items[i].icon;
                             self.tr2tc3_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         case 7:
@@ -177,6 +223,7 @@
                             self.tr3tc1_name = formula.items[i].name;
                             self.tr3tc1_icon = formula.items[i].icon;
                             self.tr3tc1_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         case 8:
@@ -185,6 +232,7 @@
                             self.tr3tc2_name = formula.items[i].name;
                             self.tr3tc2_icon = formula.items[i].icon;
                             self.tr3tc2_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             //modal.toast({"message": self.tr3tc2_name, "duration": 1});
 
                             break;
@@ -195,6 +243,7 @@
                             self.tr3tc3_name = formula.items[i].name;
                             self.tr3tc3_icon = formula.items[i].icon;
                             self.tr3tc3_material = formula.items[i].material;
+                            self.isDisplayTable = true;
                             break;
                         }
                         default:
@@ -218,6 +267,9 @@
         font-size: 35px;
         text-align: center;
     }
+    .lower {
+        flex: 10;
+    }
     .target {
         justify-content: center;
         align-items: center;
@@ -226,6 +278,13 @@
     .table {
         justify-content: center;
         align-items: center;
+    }
+    .furnace {
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+    .craft {
         flex: 6;
     }
 </style>

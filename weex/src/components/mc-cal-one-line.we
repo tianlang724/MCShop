@@ -6,7 +6,7 @@
                 name="{{name}}"
                 icon="{{icon}}"
                 material="{{material}}"
-                num="{{num}}"
+                num="{{number}}"
         >
         </mc-item-in-cal>
     </container>

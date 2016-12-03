@@ -1,0 +1,94 @@
+<template>
+    <div class="wrapper">
+        <div class="input">
+            <div class="material">
+                <mc-item-with-border
+                        _id="{{material_id}}"
+                        name="{{material_name}}"
+                        icon="{{material_icon}}"
+                        material="{{material_material}}"
+                >
+                </mc-item-with-border>
+            </div>
+            <div class="fire_wrapper">
+                <image class="fire" src="{{fire}}"></image>
+            </div>
+            <div class="fuel">
+                <mc-item-with-border
+                        icon="{{fuel}}"
+                >
+                </mc-item-with-border>
+            </div>
+        </div>
+        <div class="arrow_wrapper">
+            <image class="arrow" src="{{arrow}}"></image>
+        </div>
+        <div class="output">
+            <mc-item-with-border
+                    _id="{{target_id}}"
+                    name="{{target_name}}"
+                    icon="{{target_icon}}"
+                    material="{{target_material}}"
+            >
+            </mc-item-with-border>
+        </div>
+    </div>
+</template>
+
+<script>
+    module.exports = {
+        data: {
+            arrow: "http://www.wpclipart.com/signs_symbol/arrows/arrows_color/arrow_outline/arrow_outline_red_right_T.png",
+            fire: "http://www.minecraft-servers-list.org/plugins/MinecraftIdList/img/62-0.png",
+            fuel: "http://www.minecraft-servers-list.org/plugins/MinecraftIdList/img/263-0.png",
+            target_id: null,
+            target_name: null,
+            target_icon: null,
+            target_material: null,
+            material_id: null,
+            material_name: null,
+            material_icon: null,
+            material_material: null
+        }
+    }
+</script>
+
+<style>
+
+    .material {
+    }
+
+    .fuel {
+    }
+
+    .fire {
+        width: 150px;
+        height: 150px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .arrow {
+        width: 180px;
+        height: 100px;
+    }
+
+    .wrapper {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .fire_wrapper {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .input {
+        flex: 1;
+    }
+
+    .output {
+        flex: 1;
+    }
+</style>

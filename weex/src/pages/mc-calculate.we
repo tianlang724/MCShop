@@ -6,11 +6,11 @@
     <div class="content">
       <scroller class="needlist">
         <text class="text">{{needInfo}}</text>
-        <mc-item-in-cal repeat="{{rowNeed}}" rowNeed="{{data}}"></mc-item-in-cal>
+        <mc-cal-one-line repeat="{{rowNeed}}" row="{{data}}"></mc-cal-one-line>
       </scroller>
       <scroller class="wastelist">
         <text class="text">{{wasteInfo}}</text>
-        <mc-item-in-cal repeat="{{rowWaste}}" rowWaste="{{data}}"></mc-item-in-cal>
+        <mc-cal-one-line repeat="{{rowWaste}}" row="{{data}}"></mc-cal-one-line>
       </scroller>
     </div>
   </container>
@@ -30,129 +30,65 @@
   }
 </style>
 <script>
-  var mapjs=require('../lib/map');
-  var modal = require('@weex-module/modal');
-  var sqliteModules = require('@weex-module/sqlitemodule'); 
-  function  recursion(needMap,wasteMap,list) {
-  	for(var i=0;i<list.length;i++){
-    	var key=list[i].id;
-    	var searchrest=wasteMap.get(key);
-    	if(searchrest!=null){
-    		if(searchrest.num>0){
-    			searchrest.num--;
-    			if(searchrest.num>0){
-    				wasteMap.put(key,searchrest);
-    			}else{
-    				wasteMap.remove(key);
-    			}								
-    			continue ;
-    		}
-    	}
-    	if(list[i].material=="no"){
-    		sqliteModules.getItemFormulaFromId(key,
-    		function(formula){
-    		 		if(formula.outputNumber>1){
-    		 			var wastevalue=new Object();
-    					wastevalue.id=formula.item.id;
-    					wastevalue.name=formula.item.id;
-    					wastevalue.icon=formula.item.icon;
-    					wastevalue.num=formula.outputNumber-1;
-    					wasteMap.put(key,wastevalue);
-    		 		}
-    				recursion(needMap,wasteMap,formula.items);
-    		});
-    	}else{
-    		searchrest=needMap.get(key);
-    		if(searchrest!=null){
-    			searchrest.num++;
-    			needMap.put(key,searchrest);
-    		}else{
-    			var value=new Object();
-    			value.id=formula.item.id;
-    			value.name=formula.item.id;
-    			value.icon=formula.item.icon;
-    			value.num=1;
-    			needMap.put(key,value);
-    		}
-
-    	}
-    }
-}
-  module.exports = {
-    data: {
-    	result:'result',
-        rowNeed:[],
-        rowWaste:[],
-        needInfo:'need things: ',
-        wasteInfo:'waste things: '
-    },
-    methods:{
-    	resultClick:function () {
-    		modal.toast({'message':'click','duration':'0'});
-    	}
-    },
-    created:function(e){
-    	var needMap=new mapjs.Map();
-    	var wasteMap=new mapjs.Map();
-    	sqliteModules.getAllItemFromShoppingList(
-    		function(list) {
-    			if(list == "null") {
-         		 	modal.toast({"message": "list is  empty", "duration": 1});
-          			return;
-        		}
-    			recursion(needMap,wasteMap,list);
-    		});
-    	if(needMap.isEmpty()){
-    	    this.needInfo="nothing need";
-    		//modal.toast({'message':'nothing need','duration':'0'});
-    	}else{
-    	    var i=0;
-            var column = new Object();
-            column.data = new Array();
-    		needMap.each(function(key,value,index){
-                var item = new Object();
-                item.id = value.id;
-                item.name = value.name;
-                item.icon = value.icon;
-                item.material = value.material;
-                item.num=value.num;
-                column.data.push(item);
-                i++;
-                if (i == 3) {
-                    self.rowNeed.push(column);
-                    column = new Object();
-                    column.data = new Array();
-                    i=0;
+    require("../components/mc-cal-one-line.we");
+    var sqliteModule = require("@weex-module/sqlitemodule");
+    var modal = require("@weex-module/modal");
+    module.exports = {
+        data: {
+            needInfo: "need",
+            wasteInfo: "waste",
+            result: "result",
+            rowNeed: [],
+            rowWaste: []
+        },
+        created: function () {
+            var self = this;
+            sqliteModule.getBalance(function(balance) {
+                for (var i = 0; i < balance.needItems.length;) {
+                    var column = {};
+                    column.data = [];
+                    for (var j = 0; j < 4; j++) {
+                        var item = {};
+                        item.id = balance.needItems[i].id;
+                        item.name = balance.needItems[i].name;
+                        item.icon = balance.needItems[i].icon;
+                        item.material = balance.needItems[i].material;
+                        item.number = balance.needItems[i].number;
+                        column.data.push(item);
+                        i++;
+                        if (i >= balance.needItems.length) {
+                            self.rowNeed.push(column);
+                            break;
+                        }
+                        if (j == 3) {
+                            self.rowNeed.push(column);
+                        }
+                    }
                 }
-    		});
-    	}
-        if(wasteMap.isEmpty()){
-    	    this.wasteInfo="noting waste";
-            //modal.toast({'message':'nothing waste','duration':'0'});
-        }else{
-            var i=0;
-            var column = new Object();
-            column.data = new Array();
-            wasteMap.each(function(key,value,index){
-                var item = new Object();
-                item.id = value.id;
-                item.name = value.name;
-                item.icon = value.icon;
-                item.material = value.material;
-                item.num=value.num;
-                column.data.push(item);
-                i++;
-                if (i == 3) {
-                    self.rowWaste.push(column);
-                    column = new Object();
-                    column.data = new Array();
-                    i=0;
+                for (var i = 0; i < balance.wasteItems.length;) {
+                    var column = {};
+                    column.data = [];
+                    for (var j = 0; j < 4; j++) {
+                        var item = {};
+                        item.id = balance.wasteItems[i].id;
+                        item.name = balance.wasteItems[i].name;
+                        item.icon = balance.wasteItems[i].icon;
+                        item.material = balance.wasteItems[i].material;
+                        item.number = balance.wasteItems[i].number;
+                        column.data.push(item);
+                        i++;
+                        if (i >= balance.wasteItems.length) {
+                            self.rowWaste.push(column);
+                            break;
+                        }
+                        if (j == 3) {
+                            self.rowWaste.push(column);
+                        }
+                    }
                 }
             });
         }
-
     }
-}
 
 </script>
 

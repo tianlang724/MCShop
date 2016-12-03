@@ -1,7 +1,7 @@
 <template>
     <container class="wrapper">
         <div class="upper">
-            <text class='but' onclick="shoppingListClick">{{itemNumInSp}}</text>
+            <text class='but' onclick="shoppingListClick">shop</text>
             <text class="searchBar" onclick="searchBarClick">{{searchBarInputTxt}}</text>
         </div>
         <scroller class="lower" id="lower">
@@ -45,7 +45,6 @@
     require('../components/mc-item-one-line.we');
     module.exports = {
         data: {
-            itemNumInSp: 0,
             searchBarInputTxt: 'input item name or id',
             row: []
         },
@@ -75,8 +74,6 @@
             reg = new RegExp('[?|&]' + "searchtxt" + '=([^&]+)');
             match = url.match(reg);
             this.searchBarInputTxt = match[1];
-            //var txt= this.searchBarInputTxt;
-            //modal.toast({'message': txt, 'duration': 1});
             sqliteModule.getItemFromIdOrName(self.searchBarInputTxt,
                     function (list) {
                         for (var i = 0; i < list.length;) {
@@ -102,16 +99,6 @@
                     });
         },
         created: function () {
-            var self = this;
-            sqliteModule.showItemNumberInShoppingList(function (res) {
-                self.itemNumInSp = res;
-            });
-            this.$on("additem2shoppinglist", function (e) {
-                modal.toast({"message": "add a item", "duration": 1});
-                sqliteModule.showItemNumberInShoppingList(function (res) {
-                    self.itemNumInSp = res;
-                });
-            });
         }
     }
 </script>

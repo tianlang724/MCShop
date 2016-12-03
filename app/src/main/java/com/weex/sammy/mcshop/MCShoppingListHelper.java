@@ -22,6 +22,13 @@ public class MCShoppingListHelper {
             mShoppingList.add(item);
         }
     }
+    public static void removeItemFromListById(String id) {
+        for(int i = 0; i < mShoppingList.size(); i++) {
+            if(mShoppingList.get(i).id.equals(id)) {
+                mShoppingList.remove(mShoppingList.get(i));
+            }
+        }
+    }
     public static int showItemNumber(String id) {
         if(mShoppingMap.containsKey(id)) {
             int number = Integer.parseInt(mShoppingMap.get(id));

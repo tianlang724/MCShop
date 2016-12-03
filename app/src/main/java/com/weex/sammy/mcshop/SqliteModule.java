@@ -53,6 +53,12 @@ public class SqliteModule extends WXModule{
     }
 
     @WXModuleAnno
+    public void deleteItemFromSp(String id) {
+        MCShoppingListHelper.mShoppingMap.remove(id);
+        MCShoppingListHelper.removeItemFromListById(id);
+    }
+
+    @WXModuleAnno
     public void showItemNumberInShoppingList(JSCallback callback) {
         int number = MCShoppingListHelper.mShoppingList.size();
         callback.invoke(number);
@@ -68,6 +74,13 @@ public class SqliteModule extends WXModule{
     public void getItemFromIdOrName(String idOrName, JSCallback callback) {
         List<MCItem> items = MainActivity.sqliteHelper.getItemFromIdOrName(idOrName);
         callback.invoke(items);
+    }
+
+    @WXModuleAnno
+    public void getBalance(JSCallback callback) {
+        MCBalanceHelper mBalanceHelper = new MCBalanceHelper();
+        MCBalance mBalance = mBalanceHelper.calculateFromShoppingList();
+        callback.invoke(mBalance);
     }
 
     @WXModuleAnno

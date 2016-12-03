@@ -1,7 +1,7 @@
 <template>
     <div class="bundle">
         <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" material="{{material}}"></mc-item>
-        <text class="name">{{name}}+": "+{{num}}</text>
+        <text class="name">{{name}}:{{num}}</text>
     </div>
 </template>
 

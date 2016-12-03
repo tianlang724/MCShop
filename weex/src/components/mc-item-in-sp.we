@@ -1,5 +1,5 @@
 <template>
-    <div class="bundle">
+    <div class="bundle" if="{{shown}}">
         <div class="item" id="{{_id}}">
             <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" material="{{material}}" class="pic"></mc-item>
         </div>
@@ -74,7 +74,8 @@
             _id: null,
             icon: null,
             material: null,
-            itemNumInSp: null
+            itemNumInSp: null,
+            shown: true
         },
         created: function () {
             var self = this;
@@ -86,6 +87,20 @@
             clickDesBut: function (e) {
                 if (this.itemNumInSp == 0) return;
                 this.itemNumInSp--;
+                if(this.itemNumInSp == 0) {
+                    var self = this;
+                    modal.confirm({
+                        message: "delete " + this.name + " from this shopping list?",
+                        okTitle: "yes",
+                        cancelTitle: "no"
+                    }, function(res) {
+                        if(res == "yes") {
+                            sqliteModule.deleteItemFromSp(self._id);
+                            self.shown = false;
+                        }
+                    });
+
+                }
                 sqliteModule.updateItemNumber(this._id, this.itemNumInSp, function (e) {
                 });
             },
