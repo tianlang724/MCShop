@@ -3,18 +3,31 @@
     <div class="upper">
       <text class="title" onclick="resultClick">{{result}}</text>
     </div>
-    <scroller class="lower" id="lower">
-       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
-    </scroller>
-    <scroller class="lower" id="lower">
-       <mc-item-one-line repeat="{{row}}" row="{{data}}"></mc-item-one-line>
-    </scroller>
+    <div class="content">
+      <scroller class="needlist">
+        <text class="text">{{needInfo}}</text>
+        <mc-item-in-cal repeat="{{rowNeed}}" rowNeed="{{data}}"></mc-item-in-cal>
+      </scroller>
+      <scroller class="wastelist">
+        <text class="text">{{wasteInfo}}</text>
+        <mc-item-in-cal repeat="{{rowWaste}}" rowWaste="{{data}}"></mc-item-in-cal>
+      </scroller>
+    </div>
   </container>
 </template>
 <style>
-.title{
-	font-size: 30px;
+ .title{
+	font-size: 40px;
 }
+  .text{
+    font-size: 35px;
+  }
+  .needlist{
+    flex:3;
+  }
+  .wastelist{
+    flex:1;
+  }
 </style>
 <script>
   var mapjs=require('../lib/map');
@@ -22,10 +35,22 @@
   var sqliteModules = require('@weex-module/sqlitemodule'); 
   function  recursion(needMap,wasteMap,list) {
   	for(var i=0;i<list.length;i++){
-    	var id=list[i].id;
-    	sqliteModules.getItemFormulaFromId(id,
+    	var key=list[i].id;
+    	var searchrest=wasteMap.get(key);
+    	if(searchrest!=null){
+    		if(searchrest.num>0){
+    			searchrest.num--;
+    			if(searchrest.num>0){
+    				wasteMap.put(key,searchrest);
+    			}else{
+    				wasteMap.remove(key);
+    			}								
+    			continue ;
+    		}
+    	}
+    	if(list[i].material=="no"){
+    		sqliteModules.getItemFormulaFromId(key,
     		function(formula){
-    		 	if(formula.isNeedFormula=='true'){
     		 		if(formula.outputNumber>1){
     		 			var wastevalue=new Object();
     					wastevalue.id=formula.item.id;
@@ -35,46 +60,38 @@
     					wasteMap.put(key,wastevalue);
     		 		}
     				recursion(needMap,wasteMap,formula.items);
-    			}else{
-    				var key=formula.item.id;
-    				var searchrest=wasteMap.get(key);
-    				if(searchrest!=null){
-    					if(searchrest.num>0){
-    						searchrest.num--;
-    						if(searchrest.num>0){
-    							wasteMap.put(key,searchrest);
-    						}else{
-    							wasteMap.remove(key);
-    						}								
-    						return ;
-    					}
-    				}
-    			  	searchrest=needMap.get(key);
-    				if(searchrest!=null){
-    					searchrest.num++;
-    					needMap.put(key,searchrest);
-    				}else{
-    					var value=new Object();
-    					value.id=formula.item.id;
-    					value.name=formula.item.id;
-    					value.icon=formula.item.icon;
-    					value.num=1;
-    					needMap.put(key,value);
-    				}
-    			}
     		});
+    	}else{
+    		searchrest=needMap.get(key);
+    		if(searchrest!=null){
+    			searchrest.num++;
+    			needMap.put(key,searchrest);
+    		}else{
+    			var value=new Object();
+    			value.id=formula.item.id;
+    			value.name=formula.item.id;
+    			value.icon=formula.item.icon;
+    			value.num=1;
+    			needMap.put(key,value);
+    		}
+
     	}
+    }
 }
   module.exports = {
     data: {
-    	result:'result'
+    	result:'result',
+        rowNeed:[],
+        rowWaste:[],
+        needInfo:'need things: ',
+        wasteInfo:'waste things: '
     },
     methods:{
     	resultClick:function () {
     		modal.toast({'message':'click','duration':'0'});
     	}
     },
-    create:function(e){
+    created:function(e){
     	var needMap=new mapjs.Map();
     	var wasteMap=new mapjs.Map();
     	sqliteModules.getAllItemFromShoppingList(
@@ -86,12 +103,53 @@
     			recursion(needMap,wasteMap,list);
     		});
     	if(needMap.isEmpty()){
+    	    this.needInfo="nothing need";
     		modal.toast({'message':'nothing need','duration':'0'});
     	}else{
-    		needMap.each(function(){
-    			
+    	    var i=0;
+            var column = new Object();
+            column.data = new Array();
+    		needMap.each(function(key,value,index){
+                var item = new Object();
+                item.id = value.id;
+                item.name = value.name;
+                item.icon = value.icon;
+                item.material = value.material;
+                item.num=value.num;
+                column.data.push(item);
+                i++;
+                if (i == 3) {
+                    self.rowNeed.push(column);
+                    column = new Object();
+                    column.data = new Array();
+                    i=0;
+                }
     		});
     	}
+        if(wasteMap.isEmpty()){
+    	    this.wasteInfo="noting waste";
+            modal.toast({'message':'nothing waste','duration':'0'});
+        }else{
+            var i=0;
+            var column = new Object();
+            column.data = new Array();
+            wasteMap.each(function(key,value,index){
+                var item = new Object();
+                item.id = value.id;
+                item.name = value.name;
+                item.icon = value.icon;
+                item.material = value.material;
+                item.num=value.num;
+                column.data.push(item);
+                i++;
+                if (i == 3) {
+                    self.rowWaste.push(column);
+                    column = new Object();
+                    column.data = new Array();
+                    i=0;
+                }
+            });
+        }
 
     }
 }

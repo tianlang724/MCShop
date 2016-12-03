@@ -1,0 +1,46 @@
+<template>
+    <div class="bundle">
+        <mc-item _id="{{_id}}" name="{{name}}" icon="{{icon}}" material="{{material}}"></mc-item>
+        <text class="name">{{name}}+": "+{{num}}</text>
+    </div>
+</template>
+
+<style>
+    .pic {
+        width: 150px;
+        height: 150px;
+    }
+
+    .name {
+        font-size: 20px;
+        text-align: center;
+        flex: 1;
+    }
+
+    .bundle {
+        margin-top: 10px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+        width: 150px;
+        height: 200px;
+    }
+</style>
+
+<script>
+    var sqliteModules = require('@weex-module/sqlitemodule');
+    var modal = require('@weex-module/modal');
+    module.exports = {
+        data: {
+            name: null,
+            _id: null,
+            icon: null,
+            material: null,
+            num:null
+        },
+        created: function () {
+        },
+        methods: {
+        }
+    }
+</script>
