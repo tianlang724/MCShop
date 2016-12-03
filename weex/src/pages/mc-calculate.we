@@ -104,7 +104,7 @@
     		});
     	if(needMap.isEmpty()){
     	    this.needInfo="nothing need";
-    		modal.toast({'message':'nothing need','duration':'0'});
+    		//modal.toast({'message':'nothing need','duration':'0'});
     	}else{
     	    var i=0;
             var column = new Object();
@@ -128,7 +128,7 @@
     	}
         if(wasteMap.isEmpty()){
     	    this.wasteInfo="noting waste";
-            modal.toast({'message':'nothing waste','duration':'0'});
+            //modal.toast({'message':'nothing waste','duration':'0'});
         }else{
             var i=0;
             var column = new Object();
