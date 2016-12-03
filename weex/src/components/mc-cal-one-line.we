@@ -1,0 +1,29 @@
+<template>
+    <container class="row">
+        <mc-item-in-cal
+                repeat="{{row}}"
+                _id="{{id}}"
+                name="{{name}}"
+                icon="{{icon}}"
+                material="{{material}}"
+                num="{{num}}"
+        >
+        </mc-item-in-cal>
+    </container>
+</template>
+
+<style>
+    .row {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+</style>
+<script>
+    require("./mc-item-in-cal.we");
+    module.exports = {
+        data: {
+            row: []
+        },
+        methods: {}
+    }
+</script>

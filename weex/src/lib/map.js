@@ -146,9 +146,4 @@ function Map() {
         return count;  
     };  
 }  
-function test () {
-    alert("test");
-    /* body... */
-}
 exports.Map=Map;
-exports.test=test;
