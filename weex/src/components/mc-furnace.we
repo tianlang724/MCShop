@@ -38,9 +38,9 @@
 <script>
     module.exports = {
         data: {
-            arrow: "http://www.wpclipart.com/signs_symbol/arrows/arrows_color/arrow_outline/arrow_outline_red_right_T.png",
-            fire: "http://www.minecraft-servers-list.org/plugins/MinecraftIdList/img/62-0.png",
-            fuel: "http://www.minecraft-servers-list.org/plugins/MinecraftIdList/img/263-0.png",
+            arrow: "file:///android_asset/items/arrow_outline_red_right_T.png",
+            fire: "file:///android_asset/items/62-0.png",
+            fuel: "file:///android_asset/items/263-0.png",
             target_id: null,
             target_name: null,
             target_icon: null,
