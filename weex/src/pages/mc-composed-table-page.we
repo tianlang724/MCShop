@@ -143,18 +143,18 @@
             sqliteModule.getItemFormulaFromId(id, function (formula) {
                 self._id = formula.item.id;
                 self.name = formula.item.name;
-                self.icon = formula.item.icon;
+                self.icon = "file:///android_asset/items/"+formula.item.icon;
                 self.outputNumber = formula.outputNumber;
                 self.isRequireFurnace = formula.isRequiredFurnace;
                 if (self.isRequireFurnace == "yes") {
                     self.isDisplayFurnace = true;
                     self.target_id = self._id;
                     self.target_name = self.name;
-                    self.target_icon = self.icon;
+                    self.target_icon = "file:///android_asset/items/"+self.icon;
                     self.target_material = self.material;
                     self.material_id = formula.items[0].id;
                     self.material_name = formula.items[0].name;
-                    self.material_icon = formula.items[0].icon;
+                    self.material_icon = "file:///android_asset/items/"+formula.items[0].icon;
                     self.material_material = formula.items[0].material;
                     return;
                 }
@@ -164,7 +164,7 @@
                         {
                             self.tr1tc1_id = formula.items[i].id;
                             self.tr1tc1_name = formula.items[i].name;
-                            self.tr1tc1_icon = formula.items[i].icon;
+                            self.tr1tc1_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr1tc1_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;
@@ -173,7 +173,7 @@
                         {
                             self.tr1tc2_id = formula.items[i].id;
                             self.tr1tc2_name = formula.items[i].name;
-                            self.tr1tc2_icon = formula.items[i].icon;
+                            self.tr1tc2_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr1tc2_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             //modal.toast({"message": self.tr1tc2_name, "duration": 1});
@@ -184,7 +184,7 @@
                         {
                             self.tr1tc3_id = formula.items[i].id;
                             self.tr1tc3_name = formula.items[i].name;
-                            self.tr1tc3_icon = formula.items[i].icon;
+                            self.tr1tc3_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr1tc3_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;
@@ -193,7 +193,7 @@
                         {
                             self.tr2tc1_id = formula.items[i].id;
                             self.tr2tc1_name = formula.items[i].name;
-                            self.tr2tc1_icon = formula.items[i].icon;
+                            self.tr2tc1_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr2tc1_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;
@@ -202,7 +202,7 @@
                         {
                             self.tr2tc2_id = formula.items[i].id;
                             self.tr2tc2_name = formula.items[i].name;
-                            self.tr2tc2_icon = formula.items[i].icon;
+                            self.tr2tc2_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr2tc2_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             //modal.toast({"message": self.tr2tc2_name, "duration": 1});
@@ -212,7 +212,7 @@
                         {
                             self.tr2tc3_id = formula.items[i].id;
                             self.tr2tc3_name = formula.items[i].name;
-                            self.tr2tc3_icon = formula.items[i].icon;
+                            self.tr2tc3_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr2tc3_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;
@@ -221,7 +221,7 @@
                         {
                             self.tr3tc1_id = formula.items[i].id;
                             self.tr3tc1_name = formula.items[i].name;
-                            self.tr3tc1_icon = formula.items[i].icon;
+                            self.tr3tc1_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr3tc1_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;
@@ -230,7 +230,7 @@
                         {
                             self.tr3tc2_id = formula.items[i].id;
                             self.tr3tc2_name = formula.items[i].name;
-                            self.tr3tc2_icon = formula.items[i].icon;
+                            self.tr3tc2_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr3tc2_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             //modal.toast({"message": self.tr3tc2_name, "duration": 1});
@@ -241,7 +241,7 @@
                         {
                             self.tr3tc3_id = formula.items[i].id;
                             self.tr3tc3_name = formula.items[i].name;
-                            self.tr3tc3_icon = formula.items[i].icon;
+                            self.tr3tc3_icon = "file:///android_asset/items/"+formula.items[i].icon;
                             self.tr3tc3_material = formula.items[i].material;
                             self.isDisplayTable = true;
                             break;

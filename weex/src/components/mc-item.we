@@ -26,7 +26,7 @@
         },
         methods: {
             clickItem: function (e) {
-                modal.toast({"message": this._id, "duration": 1});
+                modal.toast({"message": this.icon, "duration": 1});
                 if(this.material == "no") {
                     var params = {
                         "url": "file://assets/weex/pages/" + "mc-composed-table-page.js" + "?id=" + this._id,
@@ -35,7 +35,7 @@
                     navigator.push(params, function (e) {
                     });
                 }
-            },
+            }
         }
     }
 </script>

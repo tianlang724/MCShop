@@ -83,7 +83,7 @@
                                 var item = {};
                                 item.id = list[i].id;
                                 item.name = list[i].name;
-                                item.icon = list[i].icon;
+                                item.icon = "file:///android_asset/items/"+list[i].icon;
                                 item.material = list[i].material;
                                 column.data.push(item);
                                 i++;
